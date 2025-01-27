@@ -29,13 +29,13 @@ import static com.ahu.coding.beast.training.phase02.LinkedListQuestion01.mergeTw
 public class LinkedListQuestion04 {
     public static void main(String[] args) {
         ListNode head1 = new ListNode(1);
-        head1.next(new ListNode(4))
-                .next(new ListNode(5));
+        head1.appendNext(new ListNode(4))
+                .appendNext(new ListNode(5));
         ListNode head2 = new ListNode(1);
-        head2.next(new ListNode(3))
-                .next(new ListNode(4));
+        head2.appendNext(new ListNode(3))
+                .appendNext(new ListNode(4));
         ListNode head3 = new ListNode(2);
-        head3.next(new ListNode(6));
+        head3.appendNext(new ListNode(6));
 
         ListNode[] data = new ListNode[]{head1, head2, head3};
 

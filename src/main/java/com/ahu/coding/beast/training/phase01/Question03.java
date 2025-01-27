@@ -16,34 +16,49 @@ public class Question03 {
     public static void main(String[] args) {
 
         Question03 question03 = new Question03();
-        System.out.println(question03.getLongestSubString("abcdefgg"));
-        System.out.println(question03.getLongestSubString("bbbbbb"));
-    }
+//        System.out.println(question03.getLongestSubString("abcdefgg"));
+//        System.out.println(question03.getLongestSubString("bbbbbb"));
 
+        System.out.println(question03.getLongestSubStringBySlidingWindow("abcdefgg"));
+        System.out.println(question03.getLongestSubStringBySlidingWindow("bbbbbb"));
+    }
 
     /**
-     * 官方解法 例如 abbcdef 最长的无重复字符的子串是 bcdef
-     * i 指向 a j指向第二个b的时候此时set里面已经存在b了
-     * i则需要移动
+     * 滑动窗口思路：
+     * 假设我们选择字符串中的第 k 个字符作为起始位置，并且得到了不包含重复字符的最长子串的结束位置为 rK
+     * 这时候如果我们重新选择第k+1 个字符作为起始位置，k+1 -> rK 之间一定没有重复的字符，所以只需要考虑增大rK就行
+     * <p>
+     * 参考：<a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/solutions/227999/wu-zhong-fu-zi-fu-de-zui-chang-zi-chuan-by-leetc-2/">...</a>
      *
-     * @param s 原始字符串
-     * @return 最长无重复字符的子串长度
+     * @param target 目标字符串
+     * @return 最终的最长无重复字符的子串
      */
-    public int lengthOfLongestSubstring(String s) {
-        int n = s.length();
-        Set<Character> set = new HashSet<>();
-        int ans = 0, i = 0, j = 0;
-        while (i < n && j < n) {
-            if (!set.contains(s.charAt(j))) {
-                set.add(s.charAt(j++));
-                ans = Math.max(ans, j - i);
-            } else {
-                set.remove(s.charAt(i++));
-            }
-        }
-        return ans;
-    }
+    public int getLongestSubStringBySlidingWindow(String target) {
 
+        if (target == null) {
+            return -1;
+        }
+        // 这个set就相当记录了窗口里面的所有元素
+        Set<Character> set = new HashSet<>();
+        int maxlength = -1;
+        for (int i = 0; i < target.length(); i++) {
+            set.add(target.charAt(i));
+            int j = i + 1;
+            while (j < target.length() && !set.contains(target.charAt(j))) {
+                // 往窗口中加进去一个元素
+                set.add(target.charAt(j));
+                j++;
+            }
+            int len = j - i;
+            if (len > maxlength) {
+                maxlength = len;
+            }
+            // 换掉开头的元素，窗口滑动一下，把第一个元素给拿掉
+            set.remove(target.charAt(i));
+        }
+
+        return maxlength;
+    }
 
     /**
      * 个人解法 相当于暴力求解 但是会简化第二轮循环，也就是说如果从i->j 存在重复字符, j就不需要继续移动了

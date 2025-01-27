@@ -25,7 +25,6 @@ public class Question11 {
             return null;
         }
         List<Node> nodeList = nums.stream().map(e -> new Node(e, false)).toList();
-        List<Integer> arrange = new ArrayList<>();
 
         List<Node> trace = new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();

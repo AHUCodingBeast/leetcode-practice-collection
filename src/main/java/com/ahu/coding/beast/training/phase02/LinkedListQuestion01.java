@@ -12,12 +12,12 @@ public class LinkedListQuestion01 {
     public static void main(String[] args) {
 
         ListNode head1 = new ListNode(10);
-        head1.next(new ListNode(15)).next(new ListNode(20)).next(new ListNode(35));
+        head1.appendNext(new ListNode(15)).appendNext(new ListNode(20)).appendNext(new ListNode(35));
         ListNode.print(head1);
 
 
         ListNode head2 = new ListNode(13);
-        head2.next(new ListNode(14)).next(new ListNode(17)).next(new ListNode(25));
+        head2.appendNext(new ListNode(14)).appendNext(new ListNode(17)).appendNext(new ListNode(25));
         ListNode.print(head2);
 
         //     ListNode.print(mergeTwoOrderedSeqList(head1, head2));

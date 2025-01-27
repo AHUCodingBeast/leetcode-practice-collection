@@ -42,6 +42,7 @@ public class LinkedListQuestion02 {
         }
         ListNode pre = null;
         while (head != null) {
+            // 看不明白这个代码一定画个图看看分析下
             ListNode next = head.getNext();
             head.setNext(pre);
             pre = head;
@@ -62,7 +63,7 @@ public class LinkedListQuestion02 {
         }
 
         ListNode newHead = reverseListNodeByRecursion(head.getNext());
-        // 2->4->3->1   2   4->3->1  把2追到1的后面 并把2的next设置为null
+        // 2->4->3->1  变成了这样  2   1->3->4   2 此时的下一个节点是4，所以需要让4 的下一个节点是2 才行
         head.getNext().setNext(head);
         head.setNext(null);
         return newHead;
