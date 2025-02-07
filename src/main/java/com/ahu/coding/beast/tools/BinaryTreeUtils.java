@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -18,6 +17,11 @@ import java.util.Queue;
 public class BinaryTreeUtils {
 
 
+    /**
+     * 美观的打印一棵二叉树
+     *
+     * @param root 根节点
+     */
     public static void prettyFormatTree(BinaryTreeNode root) {
         BinaryTreeInfo treeInfo = new BinaryTreeInfo() {
             @Override
@@ -41,7 +45,6 @@ public class BinaryTreeUtils {
             }
         };
         System.out.println(BinaryTrees.printString(treeInfo));
-        ;
     }
 
     /**
@@ -74,7 +77,7 @@ public class BinaryTreeUtils {
 
 
     /**
-     * 遍历二叉树
+     * 遍历二叉树 【BFS 、DFS（先序、中序、后序遍历）】
      *
      * @param root             根节点
      * @param traverseTypeEnum 遍历方式

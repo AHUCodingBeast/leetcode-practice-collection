@@ -1,17 +1,14 @@
 package com.ahu.coding.beast.entity;
 
-import lombok.Data;
-
 import java.util.Objects;
 
 /**
  * @author jianzhang
  * 2025/01/14/下午4:47
  */
-@Data
 public class ListNode {
-    private Integer value;
-    private ListNode next;
+    public Integer value;
+    public ListNode next;
 
     public ListNode(int x) {
         this.value = x;
@@ -22,25 +19,25 @@ public class ListNode {
         this.next = next;
     }
 
-    public ListNode appendNext(ListNode nextNode){
-        this.next = nextNode;
-        return nextNode;
-    }
-
-
-
-
     public static void print(ListNode head) {
+
+        ListNode p = head;
+
         StringBuilder stringBuilder = new StringBuilder();
-        while (head != null) {
-            if (head.getNext() == null) {
-                stringBuilder.append(head.getValue());
+        while (p != null) {
+            if (p.getNext() == null) {
+                stringBuilder.append(p.getValue());
             } else {
-                stringBuilder.append(head.getValue()).append("->");
+                stringBuilder.append(p.getValue()).append("->");
             }
-            head = head.getNext();
+            p = p.getNext();
         }
         System.out.println(stringBuilder);
+    }
+
+    public ListNode appendNext(ListNode nextNode) {
+        this.next = nextNode;
+        return nextNode;
     }
 
     @Override
@@ -64,5 +61,22 @@ public class ListNode {
     @Override
     public int hashCode() {
         return Objects.hash(getValue(), getNext());
+    }
+
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public ListNode getNext() {
+        return next;
+    }
+
+    public void setNext(ListNode next) {
+        this.next = next;
     }
 }

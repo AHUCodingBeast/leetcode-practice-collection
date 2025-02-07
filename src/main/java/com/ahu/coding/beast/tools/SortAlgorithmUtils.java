@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * @author jianzhang
  * 2025/01/17/下午3:11
  * <p>
- * 练习下四大排序的写法
+ * 练习下五大排序的写法
  * 快速排序、归并排序、插入排序、冒泡排序、选择排序
  */
 public class SortAlgorithmUtils {
@@ -76,6 +76,7 @@ public class SortAlgorithmUtils {
             int cur = nums[i];
             int j = i - 1;
             while (j >= 0 && cur < nums[j]) {
+                // 移动数组中的元素而不是互换元素
                 nums[j + 1] = nums[j];
                 j--;
             }
@@ -137,6 +138,7 @@ public class SortAlgorithmUtils {
         int middle = (high + low) / 2;
         mergeSort(nums, low, middle);
         mergeSort(nums, middle + 1, high);
+        // 合并low->mid 与 mid+1 -> high 两部分
         merge(nums, low, middle, high);
         return nums;
     }
@@ -175,7 +177,7 @@ public class SortAlgorithmUtils {
     }
 
 
-    public static int[] sortFromLarge2Small(int nums[], Function<int[], int[]> baseFunc) {
+    public static int[] sortFromLarge2Small(int[] nums, Function<int[], int[]> baseFunc) {
         int[] apply = baseFunc.apply(nums);
         int i = 0;
         int j = apply.length - 1;

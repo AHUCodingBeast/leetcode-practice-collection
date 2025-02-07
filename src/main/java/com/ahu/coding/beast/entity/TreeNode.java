@@ -8,6 +8,6 @@ import java.util.List;
  * 多叉树节点
  */
 public class TreeNode {
-    int value;
-    List<TreeNode> children;
+    public int value;
+    public List<TreeNode> children;
 }
