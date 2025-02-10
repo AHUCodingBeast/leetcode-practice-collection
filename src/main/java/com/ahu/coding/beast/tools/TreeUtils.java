@@ -1,5 +1,6 @@
-package com.ahu.coding.beast.entity;
+package com.ahu.coding.beast.tools;
 
+import com.ahu.coding.beast.entity.MenuVo;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
  * 把具有父子关系的模型整理成一棵树的相关工具类
  * 适用场景：多级菜单、省市级区域数据
  */
-public class TreeUtil {
+public class TreeUtils {
     /**
      * @param allData        具有父子关系的元素列表
      * @param rootCheck      一个Predicate函数接口实例，用来判断某个元素是否是根节点
@@ -113,10 +114,10 @@ public class TreeUtil {
 
         List<MenuVo> menuList = getMenuVos();
 
-        List<MenuVo> tree = TreeUtil.makeTree(menuList, x -> x.getPId() == -1L, (x, y) -> x.getId().equals(y.getPId()), MenuVo::setSubMenus);
+        List<MenuVo> tree = TreeUtils.makeTree(menuList, x -> x.getPId() == -1L, (x, y) -> x.getId().equals(y.getPId()), MenuVo::setSubMenus);
 
         // 对每个一级菜单下的所有子菜单按照rank排序  rank大的排在前面
-        List<MenuVo> sortTree = TreeUtil.sort(tree, (x, y) -> y.getRank().compareTo(x.getRank()), MenuVo::getSubMenus);
+        List<MenuVo> sortTree = TreeUtils.sort(tree, (x, y) -> y.getRank().compareTo(x.getRank()), MenuVo::getSubMenus);
 
         System.out.println(JSON.toJSONString(sortTree, JSONWriter.Feature.PrettyFormat));
 

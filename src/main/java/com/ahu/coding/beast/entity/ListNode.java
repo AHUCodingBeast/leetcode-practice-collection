@@ -35,6 +35,21 @@ public class ListNode {
         System.out.println(stringBuilder);
     }
 
+    public String getNodeListStr() {
+        StringBuilder stringBuilder = new StringBuilder();
+        ListNode p = this;
+        while (p != null) {
+            if (p.getNext() == null) {
+                stringBuilder.append(p.getValue());
+            } else {
+                stringBuilder.append(p.getValue()).append("->");
+            }
+            p = p.getNext();
+        }
+        return stringBuilder.toString();
+
+    }
+
     public ListNode appendNext(ListNode nextNode) {
         this.next = nextNode;
         return nextNode;

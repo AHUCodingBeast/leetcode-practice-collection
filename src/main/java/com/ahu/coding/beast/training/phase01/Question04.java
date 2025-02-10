@@ -7,12 +7,11 @@ import cn.hutool.core.util.StrUtil;
  * 2025/01/15/下午2:07
  * <p>
  * 原题： 求解字符串里面的最长回文串，例如 cbbdbbdc  输出 bbdbb
+ * <a href="https://leetcode.cn/problems/longest-palindromic-substring/description/">题目链接</a>
  * 这里的
- * 思路1：是转为求解原串和逆序串的公共最长子串问题+判断回文的问题 solution01
- * 思路2：直接按照动态规划算法处理 solution02
- * 思路3：按照中心拓展法则处理  solution03
- * 思路4：manache算法
- *
+ * 思路1：直接按照动态规划算法处理 solution02
+ * 思路2：按照中心拓展法则处理  solution03
+ * 思路3：manache算法 没学习
  * <p>
  * 最长子序列参见
  * {@link Question07}
@@ -21,15 +20,44 @@ import cn.hutool.core.util.StrUtil;
 public class Question04 {
     public static void main(String[] args) {
 
-//        System.out.println(solution("cbbdbbdc"));
-//        System.out.println(solution("abbc"));
+        System.out.println(solution03("cbbdbbdc"));
+        System.out.println(solution03("abbc"));
 
     }
 
 
     public static String solution03(String str) {
 
-        return null;
+        String maxLengthLoopStr = "";
+        // 如果回文串的长度为奇数，则它有一个中心字符；如果回文串的长度为偶数，则可以认为它有两个中心字符
+        for (int i = 0; i < str.length() - 1; i++) {
+            // 分别考察以 str[i] 为中心和以str[i] 、str[i+1] 为中心拓展而来的回文串长度；
+            String res1 = centerExpandLongestLoopStr(str, i, i);
+            String res2 = centerExpandLongestLoopStr(str, i, i + 1);
+
+            if (res1.length() > maxLengthLoopStr.length()) {
+                maxLengthLoopStr = res1;
+            }
+            if (res2.length() > maxLengthLoopStr.length()) {
+                maxLengthLoopStr = res2;
+            }
+
+        }
+
+        return maxLengthLoopStr;
+    }
+
+    private static String centerExpandLongestLoopStr(String str, int centerIndex01, int centerIndex02) {
+        int i1 = centerIndex01;
+        int i2 = centerIndex02;
+
+        while (i1 >= 0 && i2 <= str.length() - 1 && str.charAt(i1) == str.charAt(i2)) {
+            i1--;
+            i2++;
+        }
+        // 此时i1和i2指向的元素不同了
+        return str.substring(i1 + 1, i2);
+
     }
 
 
@@ -93,49 +121,6 @@ public class Question04 {
             }
         }
         return true;
-    }
-
-
-    /**
-     * @param str 需要进行获取最长回文字符串的目标字符串
-     * @return 最长回文子串的长度
-     * @apiNote arr[i][j]  表示以字符串a 中a[i]结尾的子串  和 以字符串b 中b[j]结尾的子串  中最长公共子串长度
-     * 请务必好好理解arr[i][j]的定义,读上面的定义至少三遍
-     * 举例 ：
-     * a字符串为 abc ，b字符串为 abd 则按照上述定义 arr[2][2]=0 arr[1][1]=2
-     * arr[2][2]=0 为什么呢？因为a字符串中以c结尾的子串有 abc c bc ，b字符串中以d结尾的子串有abd d bd 所以两者没有公共子串，自然长度为0
-     * arr[1][1]=2 因为a字符串中以b结尾的子串有 ab b ， b字符串中以b结尾的子串有 ab b 所以两者有最长的公共子串ab 长度为2
-     * <p>
-     * 在理解arr[i][j]的定义的基础上我们就可以发现下述规律
-     * <p>
-     * 那就是如果a[i]和b[j]不相等，则肯定最长公共子串的长度就是0 （因为子串要连续）
-     * 如果a[i]和b[j]相等  则 arr[i][j] = arr[i-1][j-1] + 1
-     */
-    public static int getCommonSubStringLength(String str) {
-        String reverseStr = new StringBuilder(str).reverse().toString();
-        int len = reverseStr.length();
-
-        int[][] arr = new int[len][len];
-
-        int max = 0;
-
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = 0; j < reverseStr.length(); j++) {
-                if (str.charAt(i) != reverseStr.charAt(j)) {
-                    arr[i][j] = 0;
-                } else {
-                    if (i == 0 || j == 0) {
-                        arr[i][j] = 1;
-                    } else {
-                        arr[i][j] = arr[i - 1][j - 1] + 1;
-                    }
-                }
-                if (arr[i][j] > max) {
-                    max = arr[i][j];
-                }
-            }
-        }
-        return max;
     }
 
 

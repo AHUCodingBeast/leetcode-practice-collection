@@ -9,6 +9,17 @@ import com.ahu.coding.beast.entity.ListNode;
  */
 public class LinkedListQuestion07 {
 
+    public static void main(String[] args) {
+        ListNode head1 = new ListNode(1);
+        head1.appendNext(new ListNode(2))
+                .appendNext(new ListNode(3))
+                .appendNext(new ListNode(4))
+                .appendNext(new ListNode(5))
+                .appendNext(new ListNode(6));
+        ListNode h = removeNthFromEnd(head1, 3);
+        System.out.println(h.getNodeListStr());
+    }
+
     /**
      * 朴素的两种思路：
      * 1、算出链表长度L 倒数第n个就是正数的第L-n +1  之后的节点 就是我们要删除的节点
@@ -18,12 +29,13 @@ public class LinkedListQuestion07 {
      *
      * @param head
      * @param n
-     * @return
+     * @return 新的头结点
      */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0, head);
         ListNode first = head;
         ListNode second = dummy;
+        // 快指针先走n步
         for (int i = 0; i < n; ++i) {
             first = first.getNext();
         }

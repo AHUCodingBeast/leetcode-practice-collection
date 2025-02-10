@@ -11,6 +11,8 @@ import java.util.Set;
  * 2025/01/14/下午5:19
  * <p>
  * 最长的无重复字符的子串
+ *
+ * 例如 abcdefgg 最长无重复字符的子串为 abcdefg 应该输出7
  */
 public class Question03 {
     public static void main(String[] args) {

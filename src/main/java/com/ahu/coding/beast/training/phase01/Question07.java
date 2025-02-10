@@ -37,7 +37,7 @@ public class Question07 {
      * <p>
      * 这个递推公式怎么来的呢？其实可以写一个二维数组自己去填表来发现规律
      * 例如求解 X: abcd 和 Y: acbcfd的公共子串长度，arr[i][j] 的结果如下：
-     * arr[3][2]=3 为什么呢 因为acbcfd的前四个字符为 acbc，abcd的前3个字符为 abc ，最长公共子串显然是abc，所以这里长度为3
+     * arr[3][2]=3 为什么呢 因为acbcfd的前四个字符为 acbc，abcd的前3个字符为 abc ，最长公共子序列显然是abc，所以这里长度为3
      *     a   b   c   d
      * a   1   1   1   1
      * c   1   1   2   2
@@ -67,6 +67,7 @@ public class Question07 {
         int maxJ = -1;
 
         int[][] arr = new int[str1.length()][str2.length()];
+
         for (int i = 0; i < str1.length(); i++) {
             for (int j = 0; j < str2.length(); j++) {
                 if (str1.charAt(i) == str2.charAt(j)) {

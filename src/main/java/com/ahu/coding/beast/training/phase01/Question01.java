@@ -52,6 +52,7 @@ public class Question01 {
             int low = i + 1;
             int high = numbers.length - 1;
 
+            // 二分查找，这里只需要在i位置往后找就行了
             while (low <= high) {
                 int mid = (low + high) / 2;
                 if (numbers[mid] > sub) {

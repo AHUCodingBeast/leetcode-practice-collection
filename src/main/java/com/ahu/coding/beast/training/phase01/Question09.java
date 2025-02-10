@@ -38,10 +38,10 @@ public class Question09 {
         money = sortArrayFromLargeToSmall(money);
 
         List<Integer> resultList = new ArrayList<>();
-        for (int i = 0; i < money.length; i++) {
-            while (target >= money[i]) {
-                resultList.add(money[i]);
-                target = target - money[i];
+        for (int j : money) {
+            while (target >= j) {
+                resultList.add(j);
+                target = target - j;
             }
         }
         // 考虑下不能组成目标金额的情况

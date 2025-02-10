@@ -15,6 +15,7 @@ public class TreeNodeQuestion01 {
         BinaryTreeNode binaryTreeNode = BinaryTreeUtils.buildBalanceBinaryTree(nums, 0, nums.length - 1);
 
         // 格式化打印
+        System.out.println("当前树的结构为：");
         BinaryTreeUtils.prettyFormatTree(binaryTreeNode);
 
         System.out.println("中序遍历=" + BinaryTreeUtils.traverseBinaryTree(binaryTreeNode, BinaryTreeUtils.BinaryTreeTraverseTypeEnum.MID_ORDER));

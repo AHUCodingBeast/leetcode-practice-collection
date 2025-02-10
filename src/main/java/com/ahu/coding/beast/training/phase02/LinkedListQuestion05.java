@@ -60,7 +60,7 @@ public class LinkedListQuestion05 {
             // 快慢指针
             fast = fast.getNext().getNext();
             if (slow == fast) {
-                // 一定有环 快慢指针相遇的时候，再安排一个指针从头开始走，并且步频一致下次相遇就是入圈节点
+                // 一定有环 快慢指针相遇的时候，再安排一个指针从头开始走，并且步频一致下次相遇就是入圈节点(之所以这样的原因是可以通过公式推导出来的)
                 while (slow != ptr) {
                     slow = slow.getNext();
                     ptr = ptr.getNext();

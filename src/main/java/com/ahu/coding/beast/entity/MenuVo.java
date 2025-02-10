@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @author jianzhang
+ */
 @Data
 public class MenuVo {
     /**

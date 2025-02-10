@@ -20,8 +20,8 @@ public class LinkedListQuestion01 {
         head2.appendNext(new ListNode(14)).appendNext(new ListNode(17)).appendNext(new ListNode(25));
         ListNode.print(head2);
 
-        //     ListNode.print(mergeTwoOrderedSeqList(head1, head2));
-        ListNode.print(mergeTwoOrderedSeqListByRecursive(head1, head2));
+             ListNode.print(mergeTwoOrderedSeqList(head1, head2));
+      //  ListNode.print(mergeTwoOrderedSeqListByRecursive(head1, head2));
     }
 
 
@@ -70,12 +70,11 @@ public class LinkedListQuestion01 {
             if (cur1.getValue() < cur2.getValue()) {
                 cur3.setNext(cur1);
                 cur1 = cur1.getNext();
-                cur3 = cur3.getNext();
             } else {
                 cur3.setNext(cur2);
                 cur2 = cur2.getNext();
-                cur3 = cur3.getNext();
             }
+            cur3 = cur3.getNext();
         }
         while (cur1 != null) {
             cur3.setNext(cur1);

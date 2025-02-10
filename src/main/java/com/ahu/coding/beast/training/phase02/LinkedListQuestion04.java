@@ -31,11 +31,14 @@ public class LinkedListQuestion04 {
         ListNode head1 = new ListNode(1);
         head1.appendNext(new ListNode(4))
                 .appendNext(new ListNode(5));
+
         ListNode head2 = new ListNode(1);
         head2.appendNext(new ListNode(3))
                 .appendNext(new ListNode(4));
+
         ListNode head3 = new ListNode(2);
         head3.appendNext(new ListNode(6));
+
 
         ListNode[] data = new ListNode[]{head1, head2, head3};
 

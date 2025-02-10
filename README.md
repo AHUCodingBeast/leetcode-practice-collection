@@ -97,13 +97,13 @@ def backtrack(路径, 选择列表):
 
 左右指针法，典型例题：
 
-- `com.ahu.coding.beast.training.phase01.Question14`, `com.ahu.coding.beast.training.phase01.Question01.twoSum3`
-  一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
+- `com.ahu.coding.beast.training.phase01.Question14`, `com.ahu.coding.beast.training.phase01.Question01.twoSum3`  
+  一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解  
 - `com.ahu.coding.beast.training.phase01.Question04.solution03` 则是中心向两边发散，发散的过程中进行问题求解
 
 快慢指针法，典型例题：
 
-- `com.ahu.coding.beast.training.phase01.Question13`,`com.ahu.coding.beast.training.phase01.Question12`,`com.ahu.coding.beast.training.phase02.LinkedListQuestion09`
+- `com.ahu.coding.beast.training.phase01.Question13`,  `com.ahu.coding.beast.training.phase01.Question12`,  `com.ahu.coding.beast.training.phase02.LinkedListQuestion09`  
   一般套路都是快指针来进行条件判断，完成一个数组的遍历，然后慢指针所指的位置就是需要和快指针进行数据操作的位置，比如进行互换或者覆盖等
 
 ### 链表双指针问题
@@ -119,6 +119,49 @@ def backtrack(路径, 选择列表):
 
 - `com.ahu.coding.beast.training.phase01.Question03.getLongestSubStringBySlidingWindow`
   在这个代码里面使用了一个Set作为窗口，用来记录最长的不重复子串的具体字符集。
+  一般情况下滑动窗口的代码框架如下：
+```java
+// 滑动窗口算法伪码框架
+void slidingWindow(String s) {
+  // 用合适的数据结构记录窗口中的数据，根据具体场景变通
+  // 比如说，我想记录窗口中元素出现的次数，就用 map
+  // 如果我想记录窗口中的元素和，就可以只用一个 int
+  Object window = ...
+
+  int left = 0, right = 0;
+  while (right < s.length()) {
+    // c 是将移入窗口的字符
+    char c = s[right];
+    window.add(c)
+    // 增大窗口
+    right++;
+    // 进行窗口内数据的一系列更新
+        ...
+
+    // *** debug 输出的位置 ***
+    // 注意在最终的解法代码中不要 print
+    // 因为 IO 操作很耗时，可能导致超时
+    printf("window: [%d, %d)\n", left, right);
+    // ***********************
+
+    // 判断左侧窗口是否要收缩
+    while (left < right && window needs shrink) {
+      // d 是将移出窗口的字符
+      char d = s[left];
+      window.remove(d)
+      // 缩小窗口
+      left++;
+      // 进行窗口内数据的一系列更新
+            ...
+    }
+  }
+}
+```
+相关的实战题目参考：
+`com.ahu.coding.beast.training.Question17`
+`com.ahu.coding.beast.training.Question16`
+`com.ahu.coding.beast.training.Question15`
+
 
 ## 单调栈
 
