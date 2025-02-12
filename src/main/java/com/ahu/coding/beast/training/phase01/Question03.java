@@ -11,7 +11,7 @@ import java.util.Set;
  * 2025/01/14/下午5:19
  * <p>
  * 最长的无重复字符的子串
- *
+ * <p>
  * 例如 abcdefgg 最长无重复字符的子串为 abcdefg 应该输出7
  */
 public class Question03 {
@@ -21,9 +21,52 @@ public class Question03 {
 //        System.out.println(question03.getLongestSubString("abcdefgg"));
 //        System.out.println(question03.getLongestSubString("bbbbbb"));
 
-        System.out.println(question03.getLongestSubStringBySlidingWindow("abcdefgg"));
-        System.out.println(question03.getLongestSubStringBySlidingWindow("bbbbbb"));
+//        System.out.println(question03.getLongestSubStringBySlidingWindow("abcdefgg"));
+//        System.out.println(question03.getLongestSubStringBySlidingWindow("bbbbbb"));
+
+        System.out.println(question03.getLongestSubStringBySlidingWindowByTemplate("abcdefgg"));
+        System.out.println(question03.getLongestSubStringBySlidingWindowByTemplate("bbbbbb"));
     }
+
+    /**
+     * 时间窗口类题型 模版类写法
+     *
+     * @param target 目标字符串
+     * @return 最长无重复字符的子串长度
+     */
+    public int getLongestSubStringBySlidingWindowByTemplate(String target) {
+
+        int left = 0, right = 0;
+        int maxLen = -1;
+        int len = 0;
+        Set<Character> window = new HashSet<>();
+        while (right < target.length()) {
+
+            char rightChar = target.charAt(right);
+            if (!window.contains(rightChar)) {
+                window.add(rightChar);
+                len++;
+            } else {
+                while (right - left >= 0 && window.contains(rightChar)) {
+                    char leftChar = target.charAt(left);
+                    if (window.contains(leftChar)) {
+                        window.remove(leftChar);
+                        len--;
+                    }
+                    left++;
+                }
+            }
+
+            if (len > maxLen) {
+                maxLen = len;
+            }
+
+            right++;
+        }
+
+        return maxLen;
+    }
+
 
     /**
      * 滑动窗口思路：

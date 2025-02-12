@@ -1,13 +1,12 @@
 package com.ahu.coding.beast.training.phase01;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author jianzhang
  * 2025/02/10/上午10:39
  * {@link Question03}
- *
+ * <p>
  * 给你两个字符串 s1 和 s2 ，写一个函数来判断 s2 是否包含 s1 的排列。如果是，返回 true ；否则，返回 false 。
  * 换句话说，s1 的排列之一是 s2 的 子串 。
  * 示例 1：
@@ -22,14 +21,83 @@ public class Question15 {
 
 
     public static void main(String[] args) {
-        System.out.println(containArrangement1("ab", "eidbaooo"));
-        System.out.println(containArrangement1("ab", "eidboaoo"));
+        System.out.println(containArrangement2("ab", "eidbaooo"));
+        System.out.println(containArrangement2("ab", "eidboaoo"));
+        System.out.println(containArrangement3("ab", "eidbaooo"));
+        System.out.println(containArrangement3("ab", "eidboaoo"));
     }
 
+    /**
+     * 时间窗口标准解法
+     *
+     * @param t 字符串1
+     * @param s 字符串2
+     * @return 结果
+     */
+    public static Boolean containArrangement3(String t, String s) {
+
+        HashMap<Character, Integer> bench = str2HashMap(t);
+        HashMap<Character, Integer> windowRecord = new HashMap<>();
+        int left = 0, right = 0, validNum = 0;
+
+        while (right < s.length()) {
+
+            char curChar = s.charAt(right);
+            int windowLen = right - left + 1;
+
+            if (bench.containsKey(curChar)) {
+                windowRecord.compute(curChar, (k, v) -> v == null ? 1 : v + 1);
+                if (Objects.equals(windowRecord.get(curChar), bench.get(curChar))) {
+                    validNum++;
+                }
+            }
+
+            while (windowLen >= t.length()) {
+                if (validNum == bench.size()) {
+                    return true;
+                }
+                char leftChar = s.charAt(left);
+                if (windowRecord.get(leftChar) != null) {
+                    if (Objects.equals(windowRecord.get(leftChar), bench.get(leftChar))) {
+                        validNum--;
+                    }
+                    windowRecord.put(leftChar, windowRecord.get(leftChar) - 1);
+                }
+                left++;
+                windowLen = right - left + 1;
+            }
+            right++;
+        }
+
+        return false;
+    }
+
+    /**
+     * 解法2：检查字符串2中长度为s1的所有子串，转为HashMap之后统计两个map是否相等
+     *
+     * @param s1 字符串1
+     * @param s2 字符串2
+     * @return 题解
+     */
     public static Boolean containArrangement2(String s1, String s2) {
 
+        if (s1 == null || s2 == null) {
+            return false;
+        }
 
-
+        // 先考虑一个问题，假定两个字符串长度一样的情况下怎么判断一个字符串是不是另一个字符串的组合？
+        // 其实比较简单就是 每种元素个数要一样，也不能有多余的元素,所以直接变为两个hashMap之间的比较
+        HashMap<Character, Integer> base = str2HashMap(s1);
+        for (int i = 0; i < s2.length(); i++) {
+            int j = i + s1.length();
+            if (j > s2.length()) {
+                break;
+            }
+            String sub = s2.substring(i, j);
+            if (compareHashMap(base, str2HashMap(sub))) {
+                return true;
+            }
+        }
         return false;
 
     }
@@ -78,6 +146,31 @@ public class Question15 {
             charWrapper.hasChoose = false;
             trace.remove(String.valueOf(charWrapper.c));
         }
+    }
+
+    public static HashMap<Character, Integer> str2HashMap(String str) {
+        HashMap<Character, Integer> res = new HashMap<>();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            res.compute(c, (k, v) -> v == null ? 1 : v + 1);
+        }
+        return res;
+    }
+
+    public static boolean compareHashMap(HashMap<Character, Integer> map1, HashMap<Character, Integer> map2) {
+
+        if (map1.size() != map2.size()) {
+            return false;
+        }
+
+        for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
+            Character k = entry.getKey();
+            Integer v = entry.getValue();
+            if (map2.get(k) == null || map2.get(k) != v) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static class CharWrapper {

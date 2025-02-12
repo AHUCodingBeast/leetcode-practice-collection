@@ -79,7 +79,7 @@ def backtrack(路径, 选择列表):
 分治可以说是一种基本思想例如下面的几个案例：
 
 - 快速排序：就是先处理pivot的位置，pivot位置处理好了分别取递归处理左边和右边的数组，相当于二叉树的前序遍历。
- （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.quickSortMethod`）
+  （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.quickSortMethod`）
 - 归并排序：则是相当于我们先对 nums[lo..mid] 排序，再对 nums[mid+1..hi] 排序，最后把这两个有序的子数组合并，整个数组就排好序了，这个相当于二叉树的后序遍历
   （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.mergeSort`）
 - K个升序链表合并:我们先合并low->mid 的所有链表，再合并mid-> high 的所有链表，最后把两个最终的链表合并，k个链表也就合并完毕了，和上面一样也是后序遍历。
@@ -98,7 +98,7 @@ def backtrack(路径, 选择列表):
 左右指针法，典型例题：
 
 - `com.ahu.coding.beast.training.phase01.Question14`, `com.ahu.coding.beast.training.phase01.Question01.twoSum3`  
-  一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解  
+  一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
 - `com.ahu.coding.beast.training.phase01.Question04.solution03` 则是中心向两边发散，发散的过程中进行问题求解
 
 快慢指针法，典型例题：
@@ -120,56 +120,59 @@ def backtrack(路径, 选择列表):
 - `com.ahu.coding.beast.training.phase01.Question03.getLongestSubStringBySlidingWindow`
   在这个代码里面使用了一个Set作为窗口，用来记录最长的不重复子串的具体字符集。
   一般情况下滑动窗口的代码框架如下：
+
 ```java
 // 滑动窗口算法伪码框架
 void slidingWindow(String s) {
-  // 用合适的数据结构记录窗口中的数据，根据具体场景变通
-  // 比如说，我想记录窗口中元素出现的次数，就用 map
-  // 如果我想记录窗口中的元素和，就可以只用一个 int
-  Object window = ...
+    // 用合适的数据结构记录窗口中的数据，根据具体场景变通
+    // 比如说，我想记录窗口中元素出现的次数，就用 map
+    // 如果我想记录窗口中的元素和，就可以只用一个 int
+    Object window = ...
 
-  int left = 0, right = 0;
-  while (right < s.length()) {
-    // c 是将移入窗口的字符
-    char c = s[right];
-    window.add(c)
-    // 增大窗口
-    right++;
-    // 进行窗口内数据的一系列更新
-        ...
+    int left = 0, right = 0;
+    while (right < s.length()) {
+        // c 是将移入窗口的字符
+        char c = s[right];
+        window.add(c);
+        // 增大窗口
+        right++;
 
-    // *** debug 输出的位置 ***
-    // 注意在最终的解法代码中不要 print
-    // 因为 IO 操作很耗时，可能导致超时
-    printf("window: [%d, %d)\n", left, right);
-    // ***********************
+        // 进行窗口内数据的一系列更新（这里要记录窗口内的记录变化，比如无重复字符子串问题，这里就需要记录子串的长度）
 
-    // 判断左侧窗口是否要收缩
-    while (left < right && window needs shrink) {
-      // d 是将移出窗口的字符
-      char d = s[left];
-      window.remove(d)
-      // 缩小窗口
-      left++;
-      // 进行窗口内数据的一系列更新
-            ...
+        // 判断左侧窗口是否要收缩（这里是问题的关键，什么时候进行窗口收缩，比如无重复子串问题中从left到right中出现重复字符就需要收缩窗口）
+        while (left < right && window needs shrink){
+            // d 是将移出窗口的字符
+            char d = s[left];
+            window.remove(d);
+            // 缩小窗口
+            left++;
+            // 进行窗口内数据的一系列更新 （收缩完窗口需要把窗口里面的各项数值修改下）
+       ...
+        }
     }
-  }
 }
 ```
-相关的实战题目参考：
-`com.ahu.coding.beast.training.Question17`
+
+相关的实战题目参考,全部套用了上面的模板：
+`com.ahu.coding.beast.training.phase01.Question18`
+`com.ahu.coding.beast.training.phase01.Question03.getLongestSubStringBySlidingWindowByTemplate`
 `com.ahu.coding.beast.training.Question16`
 `com.ahu.coding.beast.training.Question15`
 
+## 二分查找
+
+二分查找是在数组有序情况下需要O(logN)的复杂度下最优选择。这道题目值得关注
+`com.ahu.coding.beast.training.phase01.Question17`
 
 ## 单调栈
-
-## 数组
 
 ## 递归程序设计
 
 ## 动态规划
 
+典型例题：
+`com.ahu.coding.beast.training.phase01.Question20.maxSumAndArray`
+`com.ahu.coding.beast.training.phase01.Question02`
+`com.ahu.coding.beast.training.phase01.Question07`
 
 

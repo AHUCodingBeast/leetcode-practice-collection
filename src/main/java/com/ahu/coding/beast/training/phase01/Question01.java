@@ -68,6 +68,12 @@ public class Question01 {
     }
 
 
+    /**
+     * 双指针法
+     * @param numbers 原始数组
+     * @param target 目标值
+     * @return
+     */
     public static int[] twoSum3(int[] numbers, int target) {
         int leftIndex = 0;
         int rightIndex = numbers.length - 1;
