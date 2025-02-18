@@ -173,6 +173,8 @@ void slidingWindow(String s) {
 `com.ahu.coding.beast.training.phase01.Question20.maxSumAndArray`
 `com.ahu.coding.beast.training.phase01.Question02`
 `com.ahu.coding.beast.training.phase01.Question07`
+`com.ahu.coding.beast.training.phase01.Question09`
+`com.ahu.coding.beast.training.phase01.Question10`
 
 
 ## 贪心
