@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase02;
+package com.ahu.coding.beast.training.phase_linked_list;
 
 import com.ahu.coding.beast.entity.ListNode;
 

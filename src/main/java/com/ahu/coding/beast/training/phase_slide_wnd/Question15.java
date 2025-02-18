@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase01;
+package com.ahu.coding.beast.training.phase_slide_wnd;
 
 import java.util.*;
 

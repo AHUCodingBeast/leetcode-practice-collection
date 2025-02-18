@@ -1,6 +1,7 @@
-package com.ahu.coding.beast.training.phase01;
+package com.ahu.coding.beast.training.phase_dp;
 
 import cn.hutool.core.util.StrUtil;
+import com.ahu.coding.beast.training.phase01.Question04;
 
 /**
  * @author jianzhang

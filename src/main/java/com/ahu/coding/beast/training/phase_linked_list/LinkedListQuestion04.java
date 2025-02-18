@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase02;
+package com.ahu.coding.beast.training.phase_linked_list;
 
 import com.ahu.coding.beast.entity.ListNode;
 
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import static com.ahu.coding.beast.training.phase02.LinkedListQuestion01.mergeTwoOrderedSeqList;
+import static com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion01.mergeTwoOrderedSeqList;
 
 /**
  * @author jianzhang

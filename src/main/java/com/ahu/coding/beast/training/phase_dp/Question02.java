@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase01;
+package com.ahu.coding.beast.training.phase_dp;
 
 /**
  * @author jianzhang

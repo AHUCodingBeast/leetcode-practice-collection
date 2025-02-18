@@ -16,6 +16,9 @@ public class Question22 {
 
     public static void main(String[] args) {
 
+        System.out.println(fibIteration(10));
+        System.out.println(fib(10));
+
     }
 
     /**
@@ -32,16 +35,13 @@ public class Question22 {
      * 迭代的方式去写，这时候启用了一个数组做记录
      */
     public static int fibIteration(int n) {
-        if (n < 2) {
-            return n;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i < dp.length; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        int[] record = new int[n];
-        record[0] = 0;
-        record[1] = 1;
-        for (int i = 2; i <= n; i++) {
-            record[i] = record[i - 1] + record[i - 2];
-        }
-        return record[n];
+        return dp[n];
     }
 
 

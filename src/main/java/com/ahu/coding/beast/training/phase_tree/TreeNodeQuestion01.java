@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase03;
+package com.ahu.coding.beast.training.phase_tree;
 
 import com.ahu.coding.beast.entity.BinaryTreeNode;
 import com.ahu.coding.beast.tools.BinaryTreeUtils;

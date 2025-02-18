@@ -1,20 +1,12 @@
-## 前言
+## 排序
 
-首先这里先注意下SortAlgorithm里面的代码，这里面写了五种排序的写法，不要小看排序，知道原理到代码落地其实是不同的，算法训练如果不实际去写代码，纸上谈兵是万万不行的。
+排序的代码逻辑全部集中在 SortAlgorithm里面，这里面写了五种排序的写法，不要小看排序，知道原理到代码落地其实是不同的，算法训练如果不实际去写代码，纸上谈兵是万万不行的。
 排序算法中难度最大的是归并排序（`com.ahu.coding.beast.tools.SortAlgorithmUtils.mergeSort`
 ）的写法，这个排序分治和递归的思想同时运用了，实在不太好写，第一次写的时候怎么都写不对代码，此外在快速排序的案例中选择最后一个作为‘基准’会更容易写代码，反之如果每次都选中间的则很难写。
 
-其次在第一阶段的问题解决中，写了几道动态规划+贪心算法 的经典题型例如 ：
+## 二叉树（重要）
+重点查看 `com.ahu.coding.beast.tools.BinaryTreeUtils` 中的代码内容，涵盖了所有遍历，这是我们培养递归程序写法思路的基本。
 
-- 换零钱问题（`Question09` `Question10`）
-- 最长公共子串（`com.ahu.coding.beast.training.phase01.Question04.getCommonSubStringLength`）
-- 最长公共子序列（`com.ahu.coding.beast.training.phase01.Question07.longestCommonSequence`）  
-  对于最长公共子串和最长公共子序列一定要反复的回顾 真的是非常经典
-
-此外第一阶段的联系中还涉及了几道对数字的处理，对于一个整数来说，对整数反复对10取余，然后对10做除法，就能依次的从个位开始分离每一位数字
-参考（`Question05`）
-
-第一阶段的刷题主题比较混乱，从第二阶段开始将按照下面的顺序（[刷题题集](https://labuladong.online/algo/intro/quick-learning-plan/#%E5%85%B3%E4%BA%8E%E9%A2%98%E5%8D%95)）进行分类刷题，并将每个分类下面的做题心得记录到下面对应的分类里面
 
 ## 递归
 编写递归算法，有两种思维模式：一种是通过「遍历」一遍树得到答案，另一种是通过「分解问题」
@@ -26,7 +18,7 @@
 3. 定义好递归的出口
 4. 考虑通过调用第二步的函数来一步步拆解问题
 
-再说一下遍历的思维模式，所谓遍历的思维模式就是考虑所有解的可能性，是不是相当于遍历一棵树，比如典型的全排列问题（`com.ahu.coding.beast.training.phase01.Question11.getAllArrangement`）。
+再说一下遍历的思维模式，所谓遍历的思维模式就是考虑所有解的可能性，是不是相当于遍历一棵树，比如典型的全排列问题（`Question11.getAllArrangement`）。
 只要是递归形式的遍历，都可以有前序位置和后序位置，分别在递归之前和递归之后，前序位置就可以理解为是进入一个递归节点之前做的事情，后序位置则是离开一个递归节点做的事情。如下面的代码所示：
 
 ```java
@@ -59,7 +51,7 @@
 
 ## 回溯算法
 
-回溯算法的本质是从二叉树或者多叉树种无数条到叶子节点的路径中，选择一条符合题目要求的路径，基本框架如下所示，典型的案例就是 [全排列]`com.ahu.coding.beast.training.phase01.Question11`
+回溯算法的本质是从二叉树或者多叉树种无数条到叶子节点的路径中，选择一条符合题目要求的路径，基本框架如下所示，典型的案例就是 [全排列]`Question11`
 
 ```python
 result = []
@@ -83,7 +75,7 @@ def backtrack(路径, 选择列表):
 - 归并排序：则是相当于我们先对 nums[lo..mid] 排序，再对 nums[mid+1..hi] 排序，最后把这两个有序的子数组合并，整个数组就排好序了，这个相当于二叉树的后序遍历
   （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.mergeSort`）
 - K个升序链表合并:我们先合并low->mid 的所有链表，再合并mid-> high 的所有链表，最后把两个最终的链表合并，k个链表也就合并完毕了，和上面一样也是后序遍历。
-  （代码位置：`com.ahu.coding.beast.training.phase02.LinkedListQuestion04.mergeKListsByMerge`）
+  （代码位置：`com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion04.mergeKListsByMerge`）
   可以发现共同点是：
 - 都需要分解问题（例如将数组拆成左边和右边）
 - 要递归的去解决子问题
@@ -97,27 +89,27 @@ def backtrack(路径, 选择列表):
 
 左右指针法，典型例题：
 
-- `com.ahu.coding.beast.training.phase01.Question14`, `com.ahu.coding.beast.training.phase01.Question01.twoSum3`  
+- `Question14`, `Question01.twoSum3` , `Question08`  
   一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
-- `com.ahu.coding.beast.training.phase01.Question04.solution03` 则是中心向两边发散，发散的过程中进行问题求解
+- `Question04.solution03` 则是中心向两边发散，发散的过程中进行问题求解
 
 快慢指针法，典型例题：
 
-- `com.ahu.coding.beast.training.phase01.Question13`,  `com.ahu.coding.beast.training.phase01.Question12`,  `com.ahu.coding.beast.training.phase02.LinkedListQuestion09`  
+- `Question13`,  `Question12`,  `com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion09`
   一般套路都是快指针来进行条件判断，完成一个数组的遍历，然后慢指针所指的位置就是需要和快指针进行数据操作的位置，比如进行互换或者覆盖等
 
 ### 链表双指针问题
 
-- `com.ahu.coding.beast.training.phase02.LinkedListQuestion06.getIntersectionNode`
+- `com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion06.getIntersectionNode`
   找出两个链表相交的节点，使用了双指针，遍历到头之后再转到另一个链表的头部开始遍历，两指针相遇的时候就是相交的节点，从而无需做链表对齐
-- `com.ahu.coding.beast.training.phase02.LinkedListQuestion05.detectCycle`
+- `com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion05.detectCycle`
   通过一个快指针和一个慢指针，来判断是否有环，并且通过数学推导，在快慢指针相遇之后，再安排一个指针从头遍历到新指针和慢指针相遇的时候就是入环的第一个节点，非常巧妙
-- `com.ahu.coding.beast.training.phase02.LinkedListQuestion07.removeNthFromEnd` 通过让快指针先走N步，从而快速的找到倒数的第N个元素的位置，而不用求解链表长度
-- `com.ahu.coding.beast.training.phase02.LinkedListQuestion08.middleNode` 通过让快指针每次走两步，慢指针每次走一步的方式快速的找出链表的中间结点
+- `com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion07.removeNthFromEnd` 通过让快指针先走N步，从而快速的找到倒数的第N个元素的位置，而不用求解链表长度
+- `com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion08.middleNode` 通过让快指针每次走两步，慢指针每次走一步的方式快速的找出链表的中间结点
 
 ### 特殊的双指针：滑动窗口
 
-- `com.ahu.coding.beast.training.phase01.Question03.getLongestSubStringBySlidingWindow`
+- `Question03.getLongestSubStringBySlidingWindow`
   在这个代码里面使用了一个Set作为窗口，用来记录最长的不重复子串的具体字符集。
   一般情况下滑动窗口的代码框架如下：
 
@@ -127,7 +119,7 @@ void slidingWindow(String s) {
     // 用合适的数据结构记录窗口中的数据，根据具体场景变通
     // 比如说，我想记录窗口中元素出现的次数，就用 map
     // 如果我想记录窗口中的元素和，就可以只用一个 int
-    Object window = ...
+    Object window = 
 
     int left = 0, right = 0;
     while (right < s.length()) {
@@ -147,35 +139,60 @@ void slidingWindow(String s) {
             // 缩小窗口
             left++;
             // 进行窗口内数据的一系列更新 （收缩完窗口需要把窗口里面的各项数值修改下）
-       ...
         }
     }
 }
 ```
 
 相关的实战题目参考,全部套用了上面的模板：
-`com.ahu.coding.beast.training.phase01.Question18`
-`com.ahu.coding.beast.training.phase01.Question03.getLongestSubStringBySlidingWindowByTemplate`
+`Question18`
+`Question03.getLongestSubStringBySlidingWindowByTemplate`
 `com.ahu.coding.beast.training.Question16`
 `com.ahu.coding.beast.training.Question15`
 
 ## 二分查找
 
 二分查找是在数组有序情况下需要O(logN)的复杂度下最优选择。这道题目值得关注
-`com.ahu.coding.beast.training.phase01.Question17`
+`Question17`
 
 ## 单调栈
+单调栈实际上就是栈，只是利用了一些巧妙的逻辑，使得每次新元素入栈后，栈内的元素都保持有序（单调递增或单调递减）。
+典型的例题就是：
+`com.ahu.coding.beast.training.phase01.Question25`
+`com.ahu.coding.beast.training.phase01.Question27`
+此外还有一个变种的数据结构就是 单调队列，所谓单调队列 就是一个「队列」，只是使用了一点巧妙的方法，使得队列中的元素全都是单调递增（或递减）的。
+
 
 
 ## 动态规划
+动态规划的核心思想就是穷举求最值，但是问题可以千变万化，穷举所有可行解其实并不是一件容易的事，需要你熟练掌握递归思维，只有列出正确的「状态转移方程」，才能正确地穷举。
+动态规划问题具有下面的三种重要特征，下面以斐波那契数列问题为例：  
+重叠子问题：在求解斐波那契数列的题目中，为什么递归效率低呢就是因为有大量的重复计算一个，例如求解f(20) ，求解过程中f(17) 会被计算两次，这就是动态规划问题的第一个性质：重叠子问题，解决重叠问题可以使用「备忘录」来记录迭代过程的解，进行剪支，避免不必要的计算
+最优子结构：显然斐波那契数列的子问题的解是能够逐步推到出最终的目标解的
+自底向上的递归关系：这个性质也是最难的一点，斐波那契数列问题中递归的做法是你要求解f(n) 就先分解为 f(n-1) 和 f(n-2) ,逐步分解直到分解到f(1)和f(0)的递归出口，但是动态规划不是这样，动态规划则是从f(1)和f(2)开始逐步推导出f(n)的解
 
+下面我们用动态规划的思路去解决斐波那契数列问题，代码如下：
+```java
+ public static int fib(int n) {
+  int[] dp = new int[n + 1];
+  dp[0] = 0;
+  dp[1] = 1;
+  for (int i = 2; i < dp.length; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[n];
+}
+```
 典型例题：
-`com.ahu.coding.beast.training.phase01.Question20.maxSumAndArray`
-`com.ahu.coding.beast.training.phase01.Question02`
-`com.ahu.coding.beast.training.phase01.Question07`
-`com.ahu.coding.beast.training.phase01.Question09`
-`com.ahu.coding.beast.training.phase01.Question10`
+`com.ahu.coding.beast.training.phase_dp.Question20.maxSumAndArray`
+`com.ahu.coding.beast.training.phase_dp.Question02.getCommonSubStringLength`
+`com.ahu.coding.beast.training.phase_dp.Question07.longestCommonSequence`
+`com.ahu.coding.beast.training.phase_dp.Question09`
+`com.ahu.coding.beast.training.phase_dp.Question10`
+
 
 
 ## 贪心
-贪心的时候有时候不能找到真正的解，比如说`com.ahu.coding.beast.training.phase01.Question09`中就错误的使用了贪心算法，导致部分case无法通过。
+贪心的时候有时候不能找到真正的解，比如说`Question09`中就错误的使用了贪心算法，导致部分case无法通过。
+典型例题：
+`Question23`

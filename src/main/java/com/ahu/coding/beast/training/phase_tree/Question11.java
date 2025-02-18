@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase01;
+package com.ahu.coding.beast.training.phase_tree;
 
 import cn.hutool.core.collection.CollectionUtil;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
  * @author jianzhang
  * 2025/01/26/上午11:02
  * <p>
- * 题目 ： 给定一个没有重复数字的序列，请你给出所有的全排列
+ * 题目 ：给定一个没有重复数字的序列，请你给出所有的全排列
  */
 public class Question11 {
 

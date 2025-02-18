@@ -1,4 +1,4 @@
-package com.ahu.coding.beast.training.phase01;
+package com.ahu.coding.beast.training.phase_dp;
 
 import cn.hutool.core.lang.Pair;
 import com.alibaba.fastjson2.JSON;
