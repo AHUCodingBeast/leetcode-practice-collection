@@ -7,7 +7,7 @@ import com.ahu.coding.beast.tools.BinaryTreeUtils;
  * @author jianzhang
  * 2025/01/26/上午11:52
  */
-public class TreeNodeQuestion01 {
+public class BinaryTreeQuestion01 {
 
     public static void main(String[] args) {
         int[] nums = {11, 12, 15, 17, 20, 23, 45, 22, 9};
