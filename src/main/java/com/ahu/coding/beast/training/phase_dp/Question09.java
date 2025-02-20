@@ -44,6 +44,8 @@ public class Question09 {
     public static Integer findShortestCombineLength(int target, int[] money) {
         Map<Integer, Map<Integer, Long>> map = new HashMap<>();
         int[] dp = new int[target + 1];
+
+        // 为啥不直接初始化为 int 型的最大值 Integer.MAX_VALUE 呢？因为后面有 dp[i - coin] + 1，这就会导致整型溢出。
         Arrays.fill(dp, target + 1);
 
         // 关键点组成0元的最少货币数是0 一个都不选
