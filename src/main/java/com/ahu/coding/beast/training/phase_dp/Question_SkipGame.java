@@ -1,15 +1,21 @@
 package com.ahu.coding.beast.training.phase_dp;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * @author jianzhang
  * 2025/02/18/下午4:36
  * 跳格子问题 专项
+ * {@link com.ahu.coding.beast.training.phase_tree.Question37}
  */
 public class Question_SkipGame {
 
     public static void main(String[] args) {
         System.out.println(skipGameRes01(new int[]{3, 2, 1, 0, 4}));
         System.out.println(skipGameRes01(new int[]{2, 3, 1, 1, 4}));
+        System.out.println(skipGameRes02Pro(new int[]{1, -1, -2, 4, -7, 3}, 2));
+
     }
 
     /**
@@ -76,20 +82,54 @@ public class Question_SkipGame {
 
         // 用dp[i]来表示到达位置i的最大得分。初始状态dp[0]=nums[0]，表示位置0的得分是它本身的得分。
         // 递推公式为： dp[i] = max{dp[i-1] ,dp[i-2] ....dp[i-k] } + nums[i]  当然了 i-k不能小于0 造成数组越界
-        // 难点在于 怎么求解前k步的最大值
-
         int[] dp = new int[nums.length];
+        dp[0] = nums[0];
 
-
+        for (int i = 1; i < dp.length; i++) {
+            int max = dp[i - 1] + nums[i];
+            for (int j = 1; j <= k; j++) {
+                if (i - j >= 0 && max < dp[i - j] + nums[i]) {
+                    max = dp[i - j] + nums[i];
+                }
+            }
+            dp[i] = max;
+        }
         return dp[nums.length - 1];
     }
 
     /**
-     * 跳格子3
-     * <a href="https://leetcode.cn/problems/jump-game-iii/description/?show=1">原题链接</a>
+     * 上面的  skipGameRes02 需要一个额外的for循环来找出最大值，这在leetcode中无法通过大数据量测试
+     * 需要想办法优化这里的第二个for循环,具体怎么做呢?
+     * 还是借助单调队列，只不过我们这次把索引放进去而不是把具体的数值放进去
      */
-    private static Boolean skipGameRes03(int[] nums) {
+    private static int skipGameRes02Pro(int[] nums, int k) {
+        Deque<Integer> deque = new LinkedList<>();
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        deque.push(0);
+        for (int i = 1; i < dp.length; i++) {
 
-        return null;
+            // 首先把不在窗口范围内的元素移出去
+            while (!deque.isEmpty() && deque.peekFirst() < i - k) {
+                deque.pollFirst();
+            }
+
+            // 单调队列的第一个元素就是最大dp数组的下标
+            dp[i] = dp[deque.peekFirst()] + nums[i];
+
+            // 把比当前dp[i]小的元素都压扁
+            while (!deque.isEmpty() && dp[deque.peekLast()] <= dp[i]) {
+                deque.pollLast();
+            }
+
+            deque.add(i);
+
+        }
+        return dp[nums.length - 1];
     }
+
+
+
+
+
 }

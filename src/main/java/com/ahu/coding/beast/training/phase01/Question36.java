@@ -2,6 +2,7 @@ package com.ahu.coding.beast.training.phase01;
 
 import com.ahu.coding.beast.tools.ArrayPrinter;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -37,31 +38,54 @@ public class Question36 {
      * 这个题目首先数列是无序的显然也不能排序，这时候你就不能照搬滑动窗口的模板代码了
      * 这里介绍的第一种方案就是使用一种单调队列来解决这个问题，单调队列就是队列里面的元素都是 非严格增序或者非严格降序的
      * 思路参考：<a href="https://labuladong.online/algo/data-structure/monotonic-queue/">...</a>
+     * <p>
+     * 本题单调队列里面记录的实际上是数组下标
      */
     public static int[] maxSlidingWindow01(int[] nums, int k) {
-        MonotonicQueue monotonicQueue = new MonotonicQueue();
+
+        // 首先判断最终的结果应该有多少个 很显然是 n - k + 1
         int[] res = new int[nums.length - k + 1];
+        int index = 0;
 
+        Deque<Integer> monoQueue = new LinkedList<>();
+
+        // 先处理第一个窗口内的数据
         for (int i = 0; i < k; i++) {
-            monotonicQueue.push(nums[i]);
+            while (!monoQueue.isEmpty() && nums[i] >= nums[monoQueue.peekLast()]) {
+                monoQueue.pollLast();
+            }
+            monoQueue.addLast(i);
         }
+        res[index++] = nums[monoQueue.peekFirst()];
 
-        int j = 0;
-        res[j++] = monotonicQueue.max();
 
-        for (int i = k; i < nums.length; i++) {
+        // 定义窗口的左边界和右边界 全部是闭区间
+        int wndLeft = 1;
+        int wndRight = wndLeft + k - 1;
 
-            // 大小为K的窗口进行移动 移进 nums[i] 移出 nums[i - k]
-            monotonicQueue.push(nums[i]);
+        while (wndRight < nums.length) {
 
-            // 窗口里面最大的元素恰好是你要移除的元素
-            if (monotonicQueue.max() == nums[i - k]) {
-                monotonicQueue.pop();
+            // 移出不在窗口之内的元素
+            while (!monoQueue.isEmpty() && monoQueue.peekFirst() <= wndLeft - 1) {
+                monoQueue.pollFirst();
             }
 
-            res[j++] = monotonicQueue.max();
+            // 恶霸入队，弱小之人通通闪开
+            while (!monoQueue.isEmpty() && nums[wndRight] >= nums[monoQueue.peekLast()]) {
+                monoQueue.pollLast();
+            }
+            monoQueue.addLast(wndRight);
+
+            // 记录当前窗口最牛逼的人
+            res[index++] = nums[monoQueue.peekFirst()];
+
+            // 移动窗口
+            wndLeft++;
+            wndRight++;
         }
+
         return res;
+
     }
 
     static class MonotonicQueue {
@@ -70,7 +94,7 @@ public class Question36 {
         private LinkedList<Integer> maxq = new LinkedList<>();
 
         // 在尾部添加一个元素 n，维护 maxq 的单调性质
-        public void push(int number) {
+        public void addLast(int number) {
             // 将前面小于自己的元素都删除
             while (!maxq.isEmpty() && maxq.getLast() < number) {
                 maxq.pollLast();

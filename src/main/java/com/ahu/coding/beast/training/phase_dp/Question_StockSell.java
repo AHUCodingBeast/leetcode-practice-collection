@@ -47,7 +47,7 @@ public class Question_StockSell {
             if (todayProfit > maxProfit) {
                 maxProfit = todayProfit;
             }
-
+            // 一次遍历的过程中就可以记录之前最低价格的信息
             if (minPriceTheDayBefore > prices[i]) {
                 minPriceTheDayBefore = prices[i];
             }
@@ -64,7 +64,7 @@ public class Question_StockSell {
      * 给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。
      * 在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。
      * 返回 你能获得的 最大 利润 。
-     *
+     * <p>
      * 示例 1：
      * 输入：prices = [7,1,5,3,6,4]
      * 输出：7
@@ -72,38 +72,34 @@ public class Question_StockSell {
      * 随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6 - 3 = 3。
      * 最大总利润为 4 + 3 = 7 。
      */
-    public static Integer getProfit02(int[] prices) {
+    public static Integer getProfit02Greedy(int[] prices) {
 
-        return null;
+        // dp[i][0]表示第i天交易完后手里没有股票的最大利润，dp[i][1]表示第i天交易完后手里持有一支股票的最大利润（i从0开始）。
 
+        // https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/solutions/1/best-time-to-buy-and-sell-stock-ii-zhuan-hua-fa-ji/
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            int tmp = prices[i] - prices[i - 1];
+            if (tmp > 0) {
+                profit += tmp;
+            }
+        }
+        return profit;
     }
 
-
-    /**
-     * 每天都有三种「选择」：买入、卖出、无操作，我们用 buy, sell, rest 表示这三种选择。
-     * sell 必须在 buy 之后，buy 必须在 sell 之后（第一次除外）。那么 rest 操作还应该分两种状态，一种是 buy 之后的 rest（持有了股票），一种是 sell 之后的 rest（没有持有股票）
-     * 这题最难的就是定义DP
-     * dp[i][k][0or1]   0<=i<=n-1, 1<=k<=K
-     * 比如说 dp[3][2][1] 的含义就是：今天是第三天，我现在手上持有着股票，至今 最多进行 2 次交易。
-     * 再比如 dp[2][3][0] 的含义：今天是第二天，我现在手上没有持有股票，至今 最多进行 3 次交易
-     * <p>
-     * 目标是求解：dp[n - 1][K][0] 就是求解第n-1天 经过K次交易，获得的利润，为什么最后一位是0呢  因为如果最后还持有股票没卖肯定没能获取最大利润
-     * <p>
-     * 于是我们可以推导出下述状态转移方程
-     * <p>
-     * dp[i][k][0]=max(dp[i-1][k][0],dp[i-1][k][1] +prices[i])
-     * 今天我没有持有股票，有两种可能：
-     * - 要么是我昨天就没有持有，然后今天选择rest，所以我今天还是没有持有；
-     * - 要么是我昨天持有股票，但是今天我se11了，所以我今天没有持有股票了。
-     * <p>
-     * dp[i][k][1]=max(dp[i-1][k][1],dp[i-1][k-1][0]-prices[i])
-     * 今天我持有着股票，有两种可能：
-     * - 要么我昨天就持有着股票，然后今天选择rest，所以我今天还持有着股票；
-     * - 要么我昨天本没有持有，但今天我选择buy，所以今天我就持有股票了。
-     */
-    public static Integer getProfit03(int[] nums, int k) {
-
-        return null;
+    public static Integer getProfit02Dp(int[] prices) {
+        //dp[i][0]表示第i天交易完后手里没有股票的最大利润，dp[i][1]表示第i天交易完后手里持有一支股票的最大利润（i从0开始）。
+        // dp[i][0]=max{dp[i−1][0],dp[i−1][1]+prices[i]} 昨天就没有股票 或者 昨天卖了导致今天没有
+        // dp[i][1]=max{dp[i−1][1],dp[i−1][0]−prices[i]} 昨天也持有股票 或者 昨天没有但是后来新买了一个导致今天有了股票
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; ++i) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+        }
+        return dp[n - 1][0];
     }
 
 
