@@ -240,6 +240,7 @@ void slidingWindow(String s) {
 
 单调栈实际上就是栈，只是利用了一些巧妙的逻辑，使得每次新元素入栈后，栈内的元素都保持有序（单调递增或单调递减）。
 例如我们求解数组中每一个元素之后第一个比它的元素的一题中，我们编写了下述代码,
+
 ```java
 static int[] calculateGreaterElement(int[] nums) {
     Stack<Integer> stack = new Stack<>();
@@ -258,16 +259,18 @@ static int[] calculateGreaterElement(int[] nums) {
     return res;
 }
 ```
+
 这段代码一开始看起来可能有点懵逼，但是最重要的是下面的这个图示
 
 ![单调栈](https://labuladong.online/algo/images/monotonic-stack/1.jpeg)
 
 这个图示说明了一个问题我们需要找nums[i] 之后第一个比它大的元素，只要剔除掉栈里面所有比他小的元素，然后遇到的第一个比他大的元素就是最终结果
-那么这个单调栈 单调性体现在哪里呢，我们看上图这个例子的nums[0] 在考察这个元素的时候,栈里面的元素从上到下依次是[1,2,4] 正好严格单调
+那么这个单调栈 单调性体现在哪里呢，我们看上图这个例子的nums[0] 在考察这个元素的时候,栈里面的元素从上到下依次是[1,2,4]
+正好严格单调
 典型的例题就是：
 
 `Question25`
-`Question27` 
+`Question27`
 
 基本上可以直接套用上面的方案，综上所述，单调栈适合求解下一个更大值的问题。
 
@@ -275,29 +278,30 @@ static int[] calculateGreaterElement(int[] nums) {
 
 所谓单调队列 就是一个「队列」，只是使用了一点巧妙的方法，使得队列中的元素全都是单调递增（或递减）的。
 
-![单调队列](https://labuladong.online/algo/images/monotonic-queue/2.png)  
+![单调队列](https://labuladong.online/algo/images/monotonic-queue/2.png)
 
 单调队列有个典型的特点就是 进队列的时候需要把前面比它小的都给先从队尾移出去，就像排队的时候来了个恶霸，前面弱小的人都得出队让路，直到遇到一个更牛逼的恶霸
 这样的入队方式就可以保证，任意时刻，队头那个元素就是最恶霸的人，大致的代码实现如下
+
 ```java
 class MonotonicQueue {
-  // 双链表，支持快速在头部和尾部增删元素
-  // 维护其中的元素自尾部到头部单调递增
-  private LinkedList<Integer> maxq = new LinkedList<>();
+    // 双链表，支持快速在头部和尾部增删元素
+    // 维护其中的元素自尾部到头部单调递增
+    private LinkedList<Integer> maxq = new LinkedList<>();
 
-  // 在尾部添加一个元素 n，维护 maxq 的单调性质
-  public void push(int n) {
-    // 将前面小于自己的元素都删除
-    while (!maxq.isEmpty() && maxq.getLast() <= n) {
-      maxq.pollLast();
+    // 在尾部添加一个元素 n，维护 maxq 的单调性质
+    public void push(int n) {
+        // 将前面小于自己的元素都删除
+        while (!maxq.isEmpty() && maxq.getLast() <= n) {
+            maxq.pollLast();
+        }
+        maxq.addLast(n);
     }
-    maxq.addLast(n);
-  }
 
-  public int max() {
-    // 队头的元素肯定是最大的
-    return maxq.getFirst();
-  }
+    public int max() {
+        // 队头的元素肯定是最大的
+        return maxq.getFirst();
+    }
 
 } 
 ```
@@ -307,16 +311,15 @@ class MonotonicQueue {
 给你一个数组 window，已知其最值为 A，
 如果给 window 中添加一个数 B，那么比较一下 A 和 B 就可以立即算出新的最值；
 但如果要从 window 数组中减少一个数，就不能直接得到最值了，因为如果减少的这个数恰好是 A，就需要遍历 window 中的所有元素重新寻找新的最值。
-单调队列解决的就是这种遍历导致的效率低下的问题，把第二种情况的复杂度给降到 O(1) 
+单调队列解决的就是这种遍历导致的效率低下的问题，把第二种情况的复杂度给降到 O(1)
 
-说的简单怎么降到O(1) 呢 ，前面的分析中我们得知只要window数组中减少的数字不是 移动之前的最大值，就能一值保持正确 怎么快速的判断要移出窗口的元素是不是最大值呢？
+说的简单怎么降到O(1) 呢 ，前面的分析中我们得知只要window数组中减少的数字不是 移动之前的最大值，就能一值保持正确
+怎么快速的判断要移出窗口的元素是不是最大值呢？
 单调对列的队头就恰好是最大值，这也就是这个数据结构的主要适用场景
-
 
 在 `Question36.maxSlidingWindow01` 我们就用了这个结构去解决一个真实的问题。
 
 在 `Question_SkipGame.skipGameRes02Pro` 我们使用单调队列解决了二次遍历复杂度过高的问题
-
 
 ## 动态规划
 
@@ -352,11 +355,17 @@ PS：动态规划一般都是用来求解最值问题的
 
 典型例题：
 
-`com.ahu.coding.beast.training.phase_dp.Question20.maxSumAndArray`
-`com.ahu.coding.beast.training.phase_dp.Question02.getCommonSubStringLength`
-`com.ahu.coding.beast.training.phase_dp.Question07.longestCommonSequence`
-`com.ahu.coding.beast.training.phase_dp.Question09`
-`com.ahu.coding.beast.training.phase_dp.Question10`
+`com.ahu.coding.beast.training.phase_dp.Question20.maxSumAndArray`  
+`com.ahu.coding.beast.training.phase_dp.Question09`  
+`com.ahu.coding.beast.training.phase_dp.Question10`  
+`com.ahu.coding.beast.training.phase_dp.Question_SkipGame.skipGameRes02`  
+`com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit02Dp`
+
+有时候问你两个字符串之间的一些问题，比如问你最短编辑距离，最长公共子序列之类的，都会定义一个dp[][]  的二维数组来解决问题，例如下面三道题目
+
+`com.ahu.coding.beast.training.phase_dp.Question02.getCommonSubStringLength`  
+`com.ahu.coding.beast.training.phase_dp.Question07.longestCommonSequence`  
+`com.ahu.coding.beast.training.phase_dp.Question_EditDistance`  
 
 ## 贪心
 
@@ -365,4 +374,7 @@ PS：动态规划一般都是用来求解最值问题的
 因为贪心算法很容易陷入局部最优而非全局最优，导致在求解最佳方案时往往不是最佳选择
 
 典型例题：
-`Question_SkipGame`
+
+`com.ahu.coding.beast.training.phase_dp.Question_SkipGame.skipGameRes01`
+
+`com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit02Greedy`

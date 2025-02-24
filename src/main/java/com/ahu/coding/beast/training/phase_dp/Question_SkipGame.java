@@ -43,6 +43,8 @@ public class Question_SkipGame {
         int maxReachPosition = 0;
         int cur = 0;
         while (cur <= maxReachPosition) {
+
+            // 不断的去更新 maxReachPosition
             int curMaxReachPosition = cur + nums[cur];
             if (curMaxReachPosition > maxReachPosition) {
                 maxReachPosition = curMaxReachPosition;
@@ -50,6 +52,7 @@ public class Question_SkipGame {
             if (maxReachPosition >= nums.length - 1) {
                 return true;
             }
+
             cur++;
         }
         return false;
@@ -76,7 +79,7 @@ public class Question_SkipGame {
      * <a href="https://leetcode.cn/problems/jump-game-vi/description/?show=1">原题链接</a>
      * <p>
      * 分析
-     * 这道题首先数组可以有负数了 接下来每次跳的最远距离是限定范围K的
+     * 这道题首先数组可以有负数了 接下来每次跳的最远距离是限定范围K的，最后这个问题开始变成了一个最值问题，这时候优先考虑的还是动态规划
      */
     private static int skipGameRes02(int[] nums, int k) {
 
@@ -100,7 +103,7 @@ public class Question_SkipGame {
     /**
      * 上面的  skipGameRes02 需要一个额外的for循环来找出最大值，这在leetcode中无法通过大数据量测试
      * 需要想办法优化这里的第二个for循环,具体怎么做呢?
-     * 还是借助单调队列，只不过我们这次把索引放进去而不是把具体的数值放进去
+     * 还是借助单调队列，单调队列可以O(1)的复杂度获取最大值，只不过我们这次把索引放进去而不是把具体的数值放进去
      */
     private static int skipGameRes02Pro(int[] nums, int k) {
         Deque<Integer> deque = new LinkedList<>();
