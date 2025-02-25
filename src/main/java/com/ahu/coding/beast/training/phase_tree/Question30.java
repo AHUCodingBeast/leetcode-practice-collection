@@ -1,6 +1,8 @@
 package com.ahu.coding.beast.training.phase_tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -15,6 +17,8 @@ public class Question30 {
 
     public static void main(String[] args) {
         System.out.println(subsets(new int[]{1, 2, 3}));
+
+        System.out.println(doTraceByStack(new int[]{1, 2, 3}));
     }
 
     public static List<List<Integer>> subsets(int[] nums) {
@@ -30,6 +34,57 @@ public class Question30 {
             // 只能追加位于目标元素之后的元素
             doTrace(nums, i + 1, trace, result);
             trace.removeLast();
+        }
+    }
+
+
+    /**
+     * 递归的实现思路也可以转用栈来实现 但是感觉这样去写可读性会比较差 可以做下了解
+     */
+    static List<List<Integer>> doTraceByStack(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        // 初始化栈，栈中存放元组 (startIndex, 当前路径)
+        Deque<Pair<Integer, List<Integer>>> stack = new ArrayDeque<>();
+        stack.push(new Pair<>(0, new ArrayList<>()));
+
+        while (!stack.isEmpty()) {
+            Pair<Integer, List<Integer>> pair = stack.pop();
+            // 当前起始下标
+            int startIndex = pair.getKey();
+            // 当前已有路径
+            List<Integer> trace = pair.getValue();
+            // 将当前路径添加到结果集中
+            result.add(new ArrayList<>(trace));
+
+            for (int i = startIndex; i < nums.length; i++) {
+                List<Integer> newTrace = new ArrayList<>(trace);
+                newTrace.add(nums[i]);
+
+                // 将新的路径和下一个起始索引推入栈中
+                stack.push(new Pair<>(i + 1, newTrace));
+            }
+        }
+
+        return result;
+    }
+
+
+    static class Pair<K, V> {
+        private K key;
+        private V value;
+
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
         }
     }
 
