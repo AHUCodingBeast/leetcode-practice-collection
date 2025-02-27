@@ -8,6 +8,18 @@
 
 重点查看 `com.ahu.coding.beast.tools.BinaryTreeUtils` 中的代码内容，涵盖了所有遍历，这是我们培养递归程序写法思路的基本。
 
+## 遍历
+
+遍历是我们写代码中都会使用的技能，遍历一个数组时其实有下面的几个性质一定要记得
+
+**遍历的时候已经遍历的部分的最大值和最小值，我们是可以知道的。**
+
+典型的使用技巧参考：
+
+`com.ahu.coding.beast.training.phase01.Question45`
+`com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit01Smart`
+
+
 ## 递归
 
 编写递归算法，有两种思维模式：一种是通过「遍历」一遍树得到答案，另一种是通过「分解问题」
@@ -225,6 +237,7 @@ void slidingWindow(String s) {
             // d 是将移出窗口的字符
             char d = s[left];
             window.remove(d);
+            
             // 缩小窗口 并进行窗口内数据的一系列更新 （收缩完窗口需要把窗口里面的各项数值修改下）
             left++;
             // 进行窗口属性值更新
@@ -232,6 +245,8 @@ void slidingWindow(String s) {
     }
 }
 ```
+
+总的来说滑动窗口适合解决连续问题，比如问你一个字符串里面最长的无重复子串，问你数组里面和等于目标值K的最长子数组，当然了如果问题可以转为连续问题也可以考虑用这个方法进行处理
 
 相关的实战题目参考,全部套用了上面的模板：  
 `Question18`  
@@ -369,11 +384,24 @@ PS：动态规划一般都是用来求解最值问题的
 `com.ahu.coding.beast.training.phase_dp.Question_SkipGame.skipGameRes02`  
 `com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit02Dp`
 
-有时候问你两个字符串之间的一些问题，比如问你最短编辑距离，最长公共子序列之类的，都会定义一个dp[][]  的二维数组来解决问题，例如下面三道题目
+**套路1： 有时候问你两个字符串之间的一些问题，比如问你最短编辑距离，最长公共子序列之类的，都会定义一个dp[][]  的二维数组来解决问题，例如下面三道题目**
 
 `com.ahu.coding.beast.training.phase_dp.Question02.getCommonSubStringLength`  
 `com.ahu.coding.beast.training.phase_dp.Question07.longestCommonSequence`  
 `com.ahu.coding.beast.training.phase_dp.Question_EditDistance`  
+
+
+**套路2：有什么连续子串，连续递增数列等,我们都可以考虑以某个字符结尾的情况,定义dp[]，然后求解dp数组极值的方法来求解**
+
+**套路2：有什么子序列，连续递增子序列等问题,我们都可以考虑前i个元素的情况,定义dp[]，前i个元素的情况当当前元素i一般都有关联**
+
+套路2和套路3 参考这个例题会感触比较深：
+
+`com.ahu.coding.beast.training.phase_dp.Question35`
+
+
+
+
 
 ## 贪心
 

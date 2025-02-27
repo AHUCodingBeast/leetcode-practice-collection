@@ -32,7 +32,7 @@ public class Question32 {
 
     public static List<List<Integer>> getAllCombineForTarget(List<Integer> numberList, Integer target) {
         List<List<Integer>> result = new ArrayList<>();
-        // 注意这里额外增加了一个排序操作
+        // 注意这里额外增加了一个排序操作, 之所以要排序就是为了避免原始数组里面给了重复的数字  导致最终输出的结果里面存在重复
         List<Integer> sortedNumberList = numberList.stream().sorted().collect(Collectors.toList());
         trace(sortedNumberList, new ArrayList<>(), 0, target, result);
         return result;

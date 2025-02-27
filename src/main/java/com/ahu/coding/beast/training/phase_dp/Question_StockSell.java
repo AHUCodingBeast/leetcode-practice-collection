@@ -47,6 +47,11 @@ public class Question_StockSell {
         return maxProfit;
     }
 
+
+    /**
+     * 遍历的过程中有个很重要的性质就是，如果遍历一个数组 我们在遍历的任何一个时刻都可以获取已经遍历过的数据的最小值或者最大值的
+     * 本题就是利用这个性质，依次考虑每天卖彩票，并且买彩票的时候是之前最低的时候买入的时候的利润大小
+     */
     public static Integer getProfit01Smart(int[] prices) {
 
         int minPriceTheDayBefore = prices[0];
@@ -61,7 +66,6 @@ public class Question_StockSell {
                 minPriceTheDayBefore = prices[i];
             }
         }
-
         return maxProfit;
 
     }

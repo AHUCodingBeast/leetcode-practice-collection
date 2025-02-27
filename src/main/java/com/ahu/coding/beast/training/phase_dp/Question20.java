@@ -11,6 +11,12 @@ import com.alibaba.fastjson2.JSON;
  * <p>
  * 先澄清一个概念【子数组和子集】
  * 子数组是要求连续的，而子集则只要求元素在目标数组里比如 [1,2,3,4] [2,4] 不是其子数组而是其子集
+ * <p>
+ * 这种连续的问题一般我们这样定义dp数组
+ * dp[i] 表示以第 i 个元素结尾的最大子数组和。
+ * 则递推公式为： dp[i] = max{ dp[i-1] + nums[i] , nums[i] }
+ *
+
  */
 public class Question20 {
     public static void main(String[] args) {
@@ -45,10 +51,7 @@ public class Question20 {
     }
 
     /**
-     * 这个方法不仅打印了最大值还打印了构成最大值的子数组
-     *
-     * @param nums
-     * @return
+     * maxSum 代码升级 这个方法不仅打印了最大值还打印了构成最大值的子数组
      */
     public static Pair<Integer, int[]> maxSumAndArray(int[] nums) {
         if (nums == null || nums.length == 0) {

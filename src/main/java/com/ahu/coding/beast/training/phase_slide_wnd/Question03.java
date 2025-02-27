@@ -37,7 +37,7 @@ public class Question03 {
     public int getLongestSubStringBySlidingWindowByTemplate(String target) {
 
         int left = 0, right = 0;
-        int maxLen = -1;
+        int maxLen = 0;
         int len = 0;
         Set<Character> window = new HashSet<>();
         while (right < target.length()) {
@@ -55,6 +55,8 @@ public class Question03 {
                     }
                     left++;
                 }
+                window.add(rightChar);
+                len++;
             }
 
             if (len > maxLen) {

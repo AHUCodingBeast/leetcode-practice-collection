@@ -47,7 +47,6 @@ public class Question_EditDistance {
      * 替换（replace）
      * 在后面的三种操作方法中 其实问题规模就在缩小，可以看下第一种解法 (com.ahu.coding.beast.training.phase_dp.Question_EditDistance#recursive(int, int, java.lang.String, java.lang.String)递归解法
      */
-
     public static int editDistance(String word1, String word2) {
         return recursive(word1.length() - 1, word2.length() - 1, word1, word2);
     }

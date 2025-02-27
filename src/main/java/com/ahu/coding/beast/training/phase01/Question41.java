@@ -9,7 +9,7 @@ package com.ahu.coding.beast.training.phase01;
 public class Question41 {
 
     public static void main(String[] args) {
-
+        System.out.println(coverNum(2));
     }
 
 
@@ -17,8 +17,14 @@ public class Question41 {
         if (n == 0) {
             return 0;
         }
-
-        return -1;
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        //  先拿一块2*1的竖着放，或者先拿一块横着放（当横着放时其下面的部分也就确定了）
+        return coverNum(n - 1) + coverNum(n - 2);
     }
 
 }
