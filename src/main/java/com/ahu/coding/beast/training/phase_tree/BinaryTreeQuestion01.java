@@ -10,7 +10,7 @@ import com.ahu.coding.beast.tools.BinaryTreeUtils;
 public class BinaryTreeQuestion01 {
 
     public static void main(String[] args) {
-        int[] nums = {11, 12, 15, 17, 20, 23, 45, 22, 9};
+        int[] nums = {11, 12, 5, 6, 20, 23, 45, 22, 9};
         // 构建一棵平衡二叉树
         BinaryTreeNode binaryTreeNode = BinaryTreeUtils.buildBalanceBinaryTree(nums, 0, nums.length - 1);
 
@@ -22,8 +22,12 @@ public class BinaryTreeQuestion01 {
         System.out.println("后序遍历=" + BinaryTreeUtils.traverseBinaryTree(binaryTreeNode, BinaryTreeUtils.BinaryTreeTraverseTypeEnum.LAST_ORDER));
         System.out.println("前序遍历=" + BinaryTreeUtils.traverseBinaryTree(binaryTreeNode, BinaryTreeUtils.BinaryTreeTraverseTypeEnum.PRE_ORDER));
         System.out.println("层次遍历=" + BinaryTreeUtils.traverseBinaryTree(binaryTreeNode, BinaryTreeUtils.BinaryTreeTraverseTypeEnum.BFS));
+        System.out.println("Z字形层次遍历=" + BinaryTreeUtils.traverseBinaryTree(binaryTreeNode, BinaryTreeUtils.BinaryTreeTraverseTypeEnum.ZigZag_trace));
         System.out.println("二叉树的深度为=" + BinaryTreeUtils.getBinaryTreeDeep(binaryTreeNode));
+        System.out.println("二叉树中和为K的所有路径为=" + BinaryTreeUtils.getRoot2LeafPathWithSumEqK(43, binaryTreeNode));
 
 
     }
+
+
 }

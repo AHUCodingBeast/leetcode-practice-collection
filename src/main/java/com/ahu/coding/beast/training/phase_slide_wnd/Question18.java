@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author jianzhang
  * 2025/02/11/下午6:59
- * 滑动窗口练习
+ * 最大子数组问题集合
  */
 public class Question18 {
 
@@ -16,11 +16,12 @@ public class Question18 {
 //        System.out.println(getMaxComposeData(new int[]{1, 1, 1, 1, 3}, 4));
 //        System.out.println(getMaxComposeData(new int[]{1, 1, 1, 1, 3}, 5));
 //        System.out.println(getMaxComposeData(new int[]{1, 1, 1, 1, 3}, 9));
-        System.out.println(getMaxComposeData2(new int[]{1, 1, 1, 1, 3}, 5));
+//        System.out.println(getMaxComposeData2(new int[]{1, 1, 1, 1, 3}, 5));
 
         int[] arr = {1, 2, 3, -3, 3};
+//        int[] arr = {1, -1, 2, 0, 3};
         int k = 3;
-        System.out.println(getMaxComposeData3(arr,k));
+        System.out.println(getMaxComposeData3(arr, k));
     }
 
     /**
@@ -87,13 +88,14 @@ public class Question18 {
      * 假定现在有数组我们计算出来每个前缀和的值有
      * prefixSum[i] = m 代表从0到i的和值,即 nums[0]+nums[1]+...+nums[i] = m;
      * 假定还存在 prefixSum[j] = m-k (j>i), 即 nums[0]+nums[1]+...+nums[i] +nums[i+1] + ... + nums[j] =  m-k;
-     * 那么将两个式子相减就有  nums[i+1] + ... + nums[j]  = k
-     * 你就找到了一个和为k的子数组，然后考察一下他的长度是不是最长的就行了
+     * 那么将两个式子相减就有  prefixSum[j]-prefixSum[i] = nums[i+1] + ... + nums[j]  = k
+     * 你就找到了一个和为k的子数组，然后考察一下他的长度(j-(i+1)+1) = (j-i)是不是最长的就行了
      */
     public static int getMaxComposeData3(int[] arr, int k) {
         // 初始化哈希表，用于记录前缀和及其首次出现的位置
         Map<Integer, Integer> prefixSumIndex = new HashMap<>();
         // 存入前缀和为 0 时的位置为 -1，方便处理从数组起始位置开始的子数组
+        // 一定要存入这个0 否则只有一个元素的arr  或者从起始元素开始就符合合为K的条件时答案错误
         prefixSumIndex.put(0, -1);
         // 记录当前的前缀和
         int currentSum = 0;

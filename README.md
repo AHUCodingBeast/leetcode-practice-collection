@@ -189,9 +189,9 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 
 左右指针法，典型例题：
 
-- `Question14`, `Question01.twoSum3` , `Question08`  
+- `Question14`, `Question01.twoSum3` , 
   一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
-- `Question04.solution03` 则是中心向两边发散，发散的过程中进行问题求解
+- `Question04.solution03`, `Question08`   则是中心向两边发散，发散的过程中进行问题求解
 - `Question24` 进阶版的左右指针 (三数之和)
 - `Question28` 进阶版的左右指针 (四数之和)
 
@@ -294,6 +294,7 @@ static int[] calculateGreaterElement(int[] nums) {
 
 `Question25`
 `Question27`
+`com.ahu.coding.beast.training.phase01.Question08.getMaxRecArea`
 
 基本上可以直接套用上面的方案，综上所述，单调栈适合求解下一个更大值的问题。
 
@@ -343,6 +344,8 @@ class MonotonicQueue {
 在 `Question36.maxSlidingWindow01` 我们就用了这个结构去解决一个真实的问题。
 
 在 `Question_SkipGame.skipGameRes02Pro` 我们使用单调队列解决了二次遍历复杂度过高的问题
+
+在 `com.ahu.coding.beast.training.phase_slide_wnd.Question26.getWindowMaxWithMonoQueue` 利用单调队列获取滑动窗口内的最大值
 
 ## 动态规划
 

@@ -33,6 +33,7 @@ public class Question16 {
 
     public static String getSubString(String s, String t) {
 
+        // 计算字符串中每个字符出现了多少次
         HashMap<Character, Integer> base = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
             base.compute(t.charAt(i), (k, v) -> v == null ? 1 : v + 1);

@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author jianzhang
@@ -105,6 +105,10 @@ public class BinaryTreeUtils {
                 lastTraverseBinaryTree(root, res);
                 return res.toString();
             }
+            case ZigZag_trace -> {
+                zigZagBfsTraverseBinaryTree(root, res);
+                return res.toString();
+            }
             default -> {
                 throw new UnsupportedOperationException("TraverseTypeEnum Unsupported");
             }
@@ -126,6 +130,40 @@ public class BinaryTreeUtils {
         int rightLength = getBinaryTreeDeep(root.getRight());
         return Math.max(leftLength, rightLength) + 1;
     }
+
+    /**
+     * 求解二叉树从根到叶子节点的路径，该路径满足路径上的所有节点之和等于给定数值K
+     *
+     * @param k    目标值
+     * @param root 根节点
+     * @return 所有路径
+     */
+    public static List<List<Integer>> getRoot2LeafPathWithSumEqK(int k, BinaryTreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        getRoot2LeafPathWithSumEqK(k, root, result, new ArrayList<>());
+        return result;
+    }
+
+
+    private static void getRoot2LeafPathWithSumEqK(int k, BinaryTreeNode node, List<List<Integer>> result, List<Integer> path) {
+
+        if (node == null) {
+            return;
+        }
+
+        int remain = k - node.getValue();
+        path.addLast(node.getValue());
+        // 确保遍历到了叶子节点并且余量已经为0了
+        if (node.getRight() == null && node.getLeft() == null && remain == 0) {
+            result.add(new ArrayList<>(path));
+        }
+
+        getRoot2LeafPathWithSumEqK(remain, node.getLeft(), result, path);
+        getRoot2LeafPathWithSumEqK(remain, node.getRight(), result, path);
+        path.removeLast();
+
+    }
+
 
     /**
      * 利用BFS层次遍历求解二叉树的深度
@@ -181,6 +219,49 @@ public class BinaryTreeUtils {
     }
 
 
+    private static void zigZagBfsTraverseBinaryTree(BinaryTreeNode root, StringBuilder trace) {
+
+        LinkedList<BinaryTreeNodeExt> queue = new LinkedList<>();
+        queue.addLast(new BinaryTreeNodeExt(1, root));
+
+        int maxDeep = 1;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+
+        while (!queue.isEmpty()) {
+            BinaryTreeNodeExt nodeExt = queue.removeFirst();
+            BinaryTreeNode node = nodeExt.getNode();
+            int deep = nodeExt.getDeep();
+            if (deep > maxDeep) {
+                maxDeep = deep;
+            }
+
+
+            boolean fromLeftToRight = deep % 2 == 1;
+            map.computeIfAbsent(deep, k -> new ArrayList<>());
+            if (fromLeftToRight) {
+                map.get(deep).addLast(node.getValue());
+            } else {
+                map.get(deep).addFirst(node.getValue());
+            }
+
+            if (node.getLeft() != null) {
+                queue.addLast(new BinaryTreeNodeExt(deep + 1, node.getLeft()));
+            }
+
+            if (node.getRight() != null) {
+                queue.addLast(new BinaryTreeNodeExt(deep + 1, node.getRight()));
+            }
+
+        }
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 1; i <= maxDeep; i++) {
+            result.addAll(map.get(i));
+        }
+        trace.append(result.stream().map(String::valueOf).collect(Collectors.joining(",")));
+    }
+
+
     private static void midTraverseBinaryTree(BinaryTreeNode root, StringBuilder trace) {
         if (root == null) {
             return;
@@ -215,7 +296,8 @@ public class BinaryTreeUtils {
         BFS("层次遍历"),
         PRE_ORDER("先序遍历"),
         MID_ORDER("中序遍历"),
-        LAST_ORDER("后续遍历");
+        LAST_ORDER("后续遍历"),
+        ZigZag_trace("Z字型层次遍历");
 
 
         private final String name;

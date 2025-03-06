@@ -72,6 +72,7 @@ public class SortAlgorithmUtils {
         if (nums == null) {
             return null;
         }
+        // [0-j] 是有序的，需要考虑把nums[i] 塞进这个有序序列里面
         for (int i = 1; i < nums.length; i++) {
             int cur = nums[i];
             int j = i - 1;
