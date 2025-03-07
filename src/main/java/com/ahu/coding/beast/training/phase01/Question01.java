@@ -1,15 +1,17 @@
 package com.ahu.coding.beast.training.phase01;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author jianzhang
  * 2025/01/14/下午4:46
- *
- *  关联例题 {@link Question28}   {@link Question01}
- *
- *
+ * <p>
+ * 关联例题 {@link Question28}   {@link Question01}
+ * <p>
+ * <p>
  * 原题目：
  * 给定一个 有序 数组，还给定一个两数之和
  * [2,7,11,15] target = 9
@@ -29,7 +31,12 @@ import java.util.HashMap;
 public class Question01 {
 
     public static void main(String[] args) {
+
         System.out.println(Arrays.toString(twoSum3(new int[]{2, 7, 11, 15}, 9)));
+
+        int[] nums = new int[]{-1, 2, 2, 7, 10, 11, 15};
+        int target = 9;
+        System.out.println(getTwoSumPairList(nums, target));
     }
 
     private static int[] twoSum1(int[] nums, int target) {
@@ -74,9 +81,9 @@ public class Question01 {
 
     /**
      * 双指针法
+     *
      * @param numbers 原始数组
-     * @param target 目标值
-     * @return
+     * @param target  目标值
      */
     public static int[] twoSum3(int[] numbers, int target) {
         int leftIndex = 0;
@@ -91,9 +98,43 @@ public class Question01 {
                 return new int[]{leftIndex, rightIndex};
             }
         }
-
         return null;
-
     }
+
+
+    /**
+     * 变种题目练习：
+     * 给定一个 有序 数组（但是可能存在重复的数字），还给定一个两数之和 target 请你求解出所有能组成和target的组合，要求输出的结果不能存在重复的组合
+     * 举例：
+     * [2,2,7,11,15] target = 9  你的输出结果应该为[2,7]
+     */
+    public static List<List<Integer>> getTwoSumPairList(int[] numbers, int target) {
+        int len = numbers.length;
+        int left = 0;
+        int right = len - 1;
+        List<List<Integer>> result = new ArrayList<>();
+        while (left <= right) {
+
+            int sum = numbers[left] + numbers[right];
+            if (sum == target) {
+                result.add(List.of(numbers[left], numbers[right]));
+                while (left + 1 < len && numbers[left] == numbers[left + 1]) {
+                    left++;
+                }
+                while (right - 1 >= 0 && numbers[right] == numbers[right - 1]) {
+                    right--;
+                }
+                left++;
+                right--;
+            } else if (sum > target) {
+                right--;
+            } else {
+                left++;
+            }
+
+        }
+        return result;
+    }
+
 
 }

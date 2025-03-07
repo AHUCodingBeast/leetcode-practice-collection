@@ -24,6 +24,7 @@ public class Question14 {
         }
     }
 
+    // 定义一个左指针和一个右指针，向中间靠拢的同时不断交换两者位置
     public static void reverseString(char[] s) {
         int left = 0, right = s.length - 1;
         while (left < right) {

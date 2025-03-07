@@ -24,7 +24,7 @@ import java.util.Set;
  * 下标 5 -> 下标 6 -> 下标 4 -> 下标 1 -> 下标 3
  * <p>
  * 分析：
- * 现在咱们分析下这道题 我们发现如果问你下标 i 位置，能不能走到0 ，实际上等价于问你 从 i - arr[i]位置或者i + arr[i]位置能不能走到0，那
+ * 现在咱们分析下这道题 我们发现如果问你下标 i 位置，能不能走到数字0所在的位置 ，实际上等价于问你 从 i - arr[i]位置或者i + arr[i]位置能不能走到0，那
  * 问你从 i - arr[i]位置能不能走到0 实际上又可以继续发散，一股递归的味道就扑面而来了：skipGameRes03ByRecursive 就是直接用递归的做法
  * 递归的效率不高 不用说肯定存在重复计算，我们需要考虑能不能用迭代来解决问题
  * 你就会发现这个东西就像个二叉树，每次需要考虑  i - arr[i] 和 i + arr[i] 相当于需要根的左节点和右节点，
@@ -59,6 +59,7 @@ public class Question37 {
         if (path.contains(start)) {
             return false;
         }
+        // 不能跳出数组边界
         if (start >= arr.length || start < 0) {
             return false;
         }

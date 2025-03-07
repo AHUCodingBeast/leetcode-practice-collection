@@ -27,16 +27,17 @@ public class LinkedListQuestion09 {
             return null;
         }
         ListNode slow = head;
-        ListNode cur = head;
-        while (cur.getNext() != null) {
-            ListNode next = cur.getNext();
-            if (!next.getValue().equals(cur.getValue())) {
-                slow.setNext(cur.getNext());
+        ListNode fast = head;
+        // 思路是 快慢指针 快指针发现当前元素和下一个元素不同的话，就把下一个元素加到slow所串接的链表里面
+        while (fast.getNext() != null) {
+            ListNode next = fast.getNext();
+            if (!next.getValue().equals(fast.getValue())) {
+                slow.setNext(fast.getNext());
                 slow = slow.getNext();
             }
-            cur = cur.getNext();
+            fast = fast.getNext();
         }
-        if (Objects.equals(slow.getValue(), cur.getValue())) {
+        if (Objects.equals(slow.getValue(), fast.getValue())) {
             slow.setNext(null);
         }
         return head;
@@ -45,9 +46,7 @@ public class LinkedListQuestion09 {
     /**
      * 参考这个
      * <a href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list/solutions/680357/shan-chu-pai-xu-lian-biao-zhong-de-zhong-49v5/">...</a>
-     *
      * @param head 头指针
-     * @return
      */
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null) {

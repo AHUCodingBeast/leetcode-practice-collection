@@ -84,7 +84,7 @@ public class Question_SkipGame {
     private static int skipGameRes02(int[] nums, int k) {
 
         // 用dp[i]来表示到达位置i的最大得分。初始状态dp[0]=nums[0]，表示位置0的得分是它本身的得分。
-        // 递推公式为： dp[i] = max{dp[i-1] ,dp[i-2] ....dp[i-k] } + nums[i]  当然了 i-k不能小于0 造成数组越界
+        // 递推公式为： dp[i] = max{ dp[i-1] ,dp[i-2] ....dp[i-k] } + nums[i]  当然了 i-k不能小于0 造成数组越界
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
 
@@ -112,7 +112,7 @@ public class Question_SkipGame {
         deque.push(0);
         for (int i = 1; i < dp.length; i++) {
 
-            // 首先把不在窗口范围内的元素移出去
+            // 首先把不在窗口范围内的元素移出去 窗口大小相当于就是k
             while (!deque.isEmpty() && deque.peekFirst() < i - k) {
                 deque.pollFirst();
             }

@@ -151,8 +151,10 @@ public class BinaryTreeUtils {
             return;
         }
 
+
         int remain = k - node.getValue();
         path.addLast(node.getValue());
+
         // 确保遍历到了叶子节点并且余量已经为0了
         if (node.getRight() == null && node.getLeft() == null && remain == 0) {
             result.add(new ArrayList<>(path));
@@ -160,6 +162,8 @@ public class BinaryTreeUtils {
 
         getRoot2LeafPathWithSumEqK(remain, node.getLeft(), result, path);
         getRoot2LeafPathWithSumEqK(remain, node.getRight(), result, path);
+
+
         path.removeLast();
 
     }

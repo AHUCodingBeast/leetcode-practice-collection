@@ -10,9 +10,8 @@ import com.ahu.coding.beast.training.phase_dp.Question07;
  * 原题： 求解字符串里面的最长回文串，例如 cbbdbbdc  输出 bbdbb
  * <a href="https://leetcode.cn/problems/longest-palindromic-substring/description/">题目链接</a>
  * 这里的
- * 思路1：直接按照动态规划算法处理 solution02
+ * 思路1：直接按照动态规划算法处理 solution02  【求解最长回文串相当于求解字符串A和他的逆序串的最长公共子串】
  * 思路2：按照中心拓展法则处理  solution03
- * 思路3：manache算法 没学习
  * <p>
  * 最长子序列参见
  * {@link Question07}
@@ -62,10 +61,10 @@ public class Question04 {
     }
 
 
-    public static String solution01(String str) {
+    public static String solution02(String str) {
         String reverseStr = new StringBuilder(str).reverse().toString();
         int len = reverseStr.length();
-        int[][] arr = new int[len][len];
+        int[][] dp = new int[len][len];
 
         int max = 0;
         int maxIndex = -1;
@@ -73,16 +72,16 @@ public class Question04 {
         for (int i = 0; i < str.length(); i++) {
             for (int j = 0; j < reverseStr.length(); j++) {
                 if (str.charAt(i) != reverseStr.charAt(j)) {
-                    arr[i][j] = 0;
+                    dp[i][j] = 0;
                 } else {
                     if (i == 0 || j == 0) {
-                        arr[i][j] = 1;
+                        dp[i][j] = 1;
                     } else {
-                        arr[i][j] = arr[i - 1][j - 1] + 1;
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
                     }
                 }
-                if (arr[i][j] > max) {
-                    max = arr[i][j];
+                if (dp[i][j] > max) {
+                    max = dp[i][j];
                     // 记录下最大公共子串的下标 方便最后输出最长公共子串
                     maxIndex = i;
                 }

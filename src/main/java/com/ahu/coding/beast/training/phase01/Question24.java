@@ -53,6 +53,8 @@ public class Question24 {
      */
     public static List<List<Integer>> threeSumDoublePoint01(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+
+        // 先要排序
         Arrays.sort(nums);
 
         for (int i = 0; i < nums.length; i++) {
@@ -70,10 +72,10 @@ public class Question24 {
                 if (curSum == target) {
                     result.add(List.of(nums[i], nums[left], nums[right]));
                     // 还要继续寻找 因为要穷举所有组合
-                    // 有个关键点就是如果这里出现了num[left] 和 num[left+1] 相同的场景 result里面就可能会添加多次一样的组合所以这里需要跳过
                     left++;
                     right--;
 
+                    // 有个关键点就是如果这里出现了num[left] 和 num[left+1] 相同的场景 result里面就可能会添加多次一样的组合所以这里需要跳过
                     while (left < right && nums[left] == nums[left - 1]) {
                         left++;
                     }

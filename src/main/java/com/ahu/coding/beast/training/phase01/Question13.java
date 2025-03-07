@@ -1,5 +1,7 @@
 package com.ahu.coding.beast.training.phase01;
 
+import com.ahu.coding.beast.tools.ArrayPrinter;
+
 /**
  * @author jianzhang
  * 2025/01/14/下午5:19
@@ -18,9 +20,7 @@ public class Question13 {
     public static void main(String[] args) {
         int nums[] = {0, 1, 0, 3, 12};
         removeZero(nums);
-        for (int num : nums) {
-            System.out.print(num+" ");
-        }
+        ArrayPrinter.print(nums);
     }
 
     /**

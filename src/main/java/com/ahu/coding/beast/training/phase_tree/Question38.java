@@ -15,8 +15,10 @@ import java.util.*;
  * 0,   0,   0,   1,   0,
  * };
  * 它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。
- * <p>
  * 算法要求最后输出依次走过的索引坐标
+ *
+ * 分析：
+ * 对于每个位置（x,y） 而言 下一步都有四种选择，走哪条其实就是个四叉树
  */
 public class Question38 {
 
@@ -74,6 +76,7 @@ public class Question38 {
             }
         }
 
+        // 撤销选择
         if (!hasPath) {
             path.removeLast();
             visited[x][y] = false;
@@ -89,10 +92,11 @@ public class Question38 {
         int N = maze.length;
         int M = maze[0].length;
 
-        Deque<Node> queue = new LinkedList<>();
         // key 为子  value 为父
         Map<Node, Node> parentMap = new HashMap<>();
+
         // 加入起点
+        Deque<Node> queue = new LinkedList<>();
         queue.addLast(new Node(0, 0));
 
 

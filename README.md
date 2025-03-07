@@ -7,6 +7,14 @@
 ## 二叉树（重要）
 
 重点查看 `com.ahu.coding.beast.tools.BinaryTreeUtils` 中的代码内容，涵盖了所有遍历，这是我们培养递归程序写法思路的基本。
+二叉树的DFS和BFS是我们解决回溯问题的关键
+
+典型例题  
+`com.ahu.coding.beast.training.phase_tree.Question37`
+`com.ahu.coding.beast.training.phase_tree.Question38`
+`com.ahu.coding.beast.tools.BinaryTreeUtils.getRoot2LeafPathWithSumEqK(int, com.ahu.coding.beast.entity.BinaryTreeNode)`
+
+
 
 ## 遍历
 
@@ -64,8 +72,10 @@ public static ListNode mergeKListsByMerge(ListNode[] lists, int low, int high) {
     return mergeTwoOrderedSeqList(left, right);
 }
 ```
+其实你仔细看上面的代码是不是和归并排序的结构有点像 （mergeSort,mergeSort,merge）
 
-递归有的时候效率不高，很多时候我们分解问题的思路也是从待求解问题的基础上自顶向下的分解问题，这个和DP问题自底向上推导问题是两种不同的思路。
+
+递归有的时候效率不高，很多时候我们分解问题的思路也是从待求解问题的基础上自顶向下的分解问题（这就导致无法利用已知的解去推导未知的解），这个和DP问题自底向上推导问题是两种不同的思路。
 
 典型递归题：
 
@@ -99,7 +109,7 @@ def backtrack(路径, 选择列表):
 我们要求解[1,2,3] 的所有子集，我们可以在脑海中构建出下面的这一棵树，这棵树的特点是，不能选位于元素num[i]
 之前的元素，这就是[1,3] 下面不能发散出[1,3,2] 的原因，因为这样就重复了(因为集合具备无序性)
 
-![组合（子集）问题树](https://labuladong.online/algo/images/permutation/5.jpeg)
+![组合（子集）问题树](./pics/组合问题树.png)
 
 子集问题代码： `com.ahu.coding.beast.training.phase_tree.Question30`重点关键代码如下，是符合回溯问题基本代码框架的
 
@@ -121,11 +131,10 @@ static void doTrace(int[] nums, int startIndex, List<Integer> trace, List<List<I
 
 ### 排列问题树
 
-![排列问题树](https://labuladong.online/algo/images/permutation/7.jpeg)
+![排列问题树](./pics/排列问题树.png)
 
-相比组合树，排列树有个特点就是，排列是讲究顺序了所以不能认为[1,3,2]和 [1,2,3]
-是同一种结果,但排列问题本身就是让你穷举元素的位置，nums[i] 之后也可以出现 nums[i] 左边的元素，所以之前的那一套玩不转了，需要额外使用
-used 数组来标记哪些元素还可以被选择。
+相比组合树，排列树有个特点就是，排列是讲究顺序了所以不能认为[1,3,2]和 [1,2,3] 是同一种结果,但排列问题本身就是让你穷举元素的位置，nums[i] 之后也可以出现 nums[i] 左边的元素，所以之前的那一套玩不转了，
+需要额外使用 used 数组来标记哪些元素还可以被选择。
 排列问题代码：`com.ahu.coding.beast.training.phase_tree.Question11` 重点代码如下
 
 ```java
@@ -148,8 +157,8 @@ public static void trace(List<Integer> nums, boolean[] used, List<Integer> trace
         trace(nums, used, traceList, res);
 
         // 撤销选择
-        traceList.removeLast();
         used[i] = false;
+        traceList.removeLast();
     }
 }
 ```
@@ -158,13 +167,19 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 
 上面给的模板回溯代码解决的是标准子集或者标准排列的一类问题，但是实际情况可能还存在一种特殊场景也就是给定的目标数组存在重复数字，例如给定数组为[1,2,2]
 这种情况下，直接套用上面的模板代码给出的结果就会存在重复现象
-![特殊情况](https://labuladong.online/algo/images/permutation/9.jpeg)
+
+
+![特殊情况](./pics/组合树存在重复元素的情况.png)
 
 这时就要考虑回溯"剪枝" 详情参考 `Question32`
 
 典型例题：  
 `com.ahu.coding.beast.training.phase_tree.Question32`  
+`com.ahu.coding.beast.training.phase_tree.Question30`
+`com.ahu.coding.beast.training.phase_tree.Question31`
 `com.ahu.coding.beast.training.phase_tree.Question11`
+`com.ahu.coding.beast.training.phase_tree.Question33`
+
 
 ## 分治
 
@@ -189,11 +204,11 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 
 左右指针法，典型例题：
 
-- `Question14`, `Question01.twoSum3` , 
+- `Question14`  `Question01.twoSum3`  `com.ahu.coding.beast.training.phase01.Question01.getTwoSumPairList`
   一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
-- `Question04.solution03`, `Question08`   则是中心向两边发散，发散的过程中进行问题求解
+- `Question04.solution03`   
+   则是中心向两边发散，发散的过程中进行问题求解
 - `Question24` 进阶版的左右指针 (三数之和)
-- `Question28` 进阶版的左右指针 (四数之和)
 
 快慢指针法，典型例题：
 
@@ -209,11 +224,9 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 - `LinkedListQuestion07.removeNthFromEnd` 通过让快指针先走N步，从而快速的找到倒数的第N个元素的位置，而不用求解链表长度
 - `LinkedListQuestion08.middleNode` 通过让快指针每次走两步，慢指针每次走一步的方式快速的找出链表的中间结点
 
-### 特殊的双指针：滑动窗口
-
-- `Question03.getLongestSubStringBySlidingWindow`
-  在这个代码里面使用了一个Set作为窗口，用来记录最长的不重复子串的具体字符集。
-  一般情况下滑动窗口的代码框架如下：
+### 滑动窗口
+滑动窗口适合解决**连续**问题，比如问你一个字符串里面最长的无重复子串，问你数组里面和等于目标值K的最长子数组，当然了如果问题可以转为连续问题也可以考虑用这个方法进行处理  
+一般情况下滑动窗口的代码框架如下（建议记住）：
 
 ```java
 // 滑动窗口算法伪码框架
@@ -245,10 +258,7 @@ void slidingWindow(String s) {
     }
 }
 ```
-
-总的来说滑动窗口适合解决连续问题，比如问你一个字符串里面最长的无重复子串，问你数组里面和等于目标值K的最长子数组，当然了如果问题可以转为连续问题也可以考虑用这个方法进行处理
-
-相关的实战题目参考,全部套用了上面的模板：  
+相关的实战题目参考,全部套用了上面的模板：
 `Question18`  
 `Question03.getLongestSubStringBySlidingWindowByTemplate`  
 `com.ahu.coding.beast.training.Question16`  
@@ -256,8 +266,10 @@ void slidingWindow(String s) {
 
 ## 二分查找
 
-二分查找是在数组有序情况下需要O(logN)的复杂度下最优选择。这道题目值得关注
+二分查找是在数组**有序**情况下需要**O(logN)**的复杂度下最优选择。这道题目值得关注
 `Question17`
+
+
 
 ## 单调栈
 
@@ -285,24 +297,30 @@ static int[] calculateGreaterElement(int[] nums) {
 
 这段代码一开始看起来可能有点懵逼，但是最重要的是下面的这个图示
 
-![单调栈](https://labuladong.online/algo/images/monotonic-stack/1.jpeg)
+![单调栈](./pics/单调栈01.png)
+![单调栈](./pics/单调栈2.png)
 
 这个图示说明了一个问题我们需要找nums[i] 之后第一个比它大的元素，只要剔除掉栈里面所有比他小的元素，然后遇到的第一个比他大的元素就是最终结果
-那么这个单调栈 单调性体现在哪里呢，我们看上图这个例子的nums[0] 在考察这个元素的时候,栈里面的元素从上到下依次是[1,2,4]
-正好严格单调
-典型的例题就是：
-
+那么这个单调栈 单调性体现在哪里呢，我们看上图这个例子的nums[0] 在考察这个元素的时候,栈里面的元素从上到下依次是[1,2,4] 正好严格单调
+典型的例题就是：  
 `Question25`
 `Question27`
 `com.ahu.coding.beast.training.phase01.Question08.getMaxRecArea`
 
-基本上可以直接套用上面的方案，综上所述，单调栈适合求解下一个更大值的问题。
+基本上可以直接套用上面的方案，综上所述，单调栈适合求解下一个更大值的问题
+
+使用技巧  
+- 是如果要求一个元素右边第一个比它大的元素就从右向左遍历，反之就从左向右遍历
+- 如果要求目标元素下一个比它大的值，栈应该是从栈顶到栈底 从小到大的顺序，元素进栈的时候，会把所有比它小的都给弹出去，直到遇到第一个比它大的，这个值就是所求
+- 如果要求目标元素下一个比它小的值，栈应该是从栈顶到栈底 从大到小的顺序，元素进栈的时候，会把所有比它大的都给弹出去，直到遇到第一个比它小的，这个值就是所求
+- 由于可能给的目标数组存在重复数字的情况，使用单调栈的时候我们可以不放数字本身而是放索引下
+
 
 ## 单调队列
 
 所谓单调队列 就是一个「队列」，只是使用了一点巧妙的方法，使得队列中的元素全都是单调递增（或递减）的。
 
-![单调队列](https://labuladong.online/algo/images/monotonic-queue/2.png)
+![单调队列](./pics/单调队列.png)
 
 单调队列有个典型的特点就是 进队列的时候需要把前面比它小的都给先从队尾移出去，就像排队的时候来了个恶霸，前面弱小的人都得出队让路，直到遇到一个更牛逼的恶霸
 这样的入队方式就可以保证，任意时刻，队头那个元素就是最恶霸的人，大致的代码实现如下
@@ -338,14 +356,11 @@ class MonotonicQueue {
 单调队列解决的就是这种遍历导致的效率低下的问题，把第二种情况的复杂度给降到 O(1)
 
 说的简单怎么降到O(1) 呢 ，前面的分析中我们得知只要window数组中减少的数字不是 移动之前的最大值，就能一值保持正确
-怎么快速的判断要移出窗口的元素是不是最大值呢？
-单调对列的队头就恰好是最大值，这也就是这个数据结构的主要适用场景
+怎么快速的判断要移出窗口的元素是不是最大值呢？ 单调队列的队头就恰好是最大值，这也就是这个数据结构的主要适用场景
 
-在 `Question36.maxSlidingWindow01` 我们就用了这个结构去解决一个真实的问题。
-
+在 `Question26` 我们就用了这个结构去解决一个真实的问题。
 在 `Question_SkipGame.skipGameRes02Pro` 我们使用单调队列解决了二次遍历复杂度过高的问题
 
-在 `com.ahu.coding.beast.training.phase_slide_wnd.Question26.getWindowMaxWithMonoQueue` 利用单调队列获取滑动窗口内的最大值
 
 ## 动态规划
 
@@ -375,7 +390,7 @@ public static int fib(int n) {
 ```
 
 在经典的换零钱问题中，最优子结构就是，假定我现在有1,5,10 三种面额的纸币，我可能不知道100块能够用最少的纸币数量，但是我假如要是知道了99
-，95，90的最少纸币数量，然后再加一就是 100的兑换结果，这说明子问题之间是互联联系有关联的，又因为因为硬币的数量是没有限制的，所以子问题之间没有相互制，是互相独立的。
+，95，90的最少纸币数量，然后再加一就是 100的兑换结果，这说明**子问题之间是互联联系有关联的**，又因为因为硬币的数量是没有限制的，所以子问题之间没有相互制，是互相独立的。
 
 PS：动态规划一般都是用来求解最值问题的
 
@@ -396,7 +411,7 @@ PS：动态规划一般都是用来求解最值问题的
 
 **套路2：有什么连续子串，连续递增数列等,我们都可以考虑以某个字符结尾的情况,定义dp[]，然后求解dp数组极值的方法来求解**
 
-**套路2：有什么子序列，连续递增子序列等问题,我们都可以考虑前i个元素的情况,定义dp[]，前i个元素的情况当当前元素i一般都有关联**
+**套路2：有什么子序列，连续递增子序列等问题,没有连续性要求的场景，我们都可以考虑前i个元素的情况,定义dp[]，前i个元素的情况当和当前元素i一般都有关联**
 
 套路2和套路3 参考这个例题会感触比较深：
 
@@ -409,7 +424,7 @@ PS：动态规划一般都是用来求解最值问题的
 ## 贪心
 
 贪心的时候有时候不能找到真正的解，比如说`Question09`中就错误的使用了贪心算法，导致部分case无法通过。
-我个人觉得贪心算法在解决能不能，存不存在的问题上可以考虑使用，你比如跳格子问题，题目在问你能不能跳到终点时就可以使用贪心，但是反之在求解最值的一些问题上优先考虑的还是动态规划
+我个人觉得贪心算法在解决**能不能，存不存在的问题上可以考虑使用**，你比如跳格子问题，题目在问你能不能跳到终点时就可以使用贪心，但是反之在**求解最值的一些问题上优先考虑的还是动态规划**
 因为贪心算法很容易陷入局部最优而非全局最优，导致在求解最佳方案时往往不是最佳选择
 
 典型例题：
