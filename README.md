@@ -2,7 +2,7 @@
 
 排序的代码逻辑全部集中在 SortAlgorithm里面，这里面写了五种排序的写法，不要小看排序，知道原理到代码落地其实是不同的，算法训练如果不实际去写代码，纸上谈兵是万万不行的。
 排序算法中难度最大的是归并排序（`SortAlgorithmUtils.mergeSort`
-）的写法，这个排序分治和递归的思想同时运用了，实在不太好写，第一次写的时候怎么都写不对代码，此外在快速排序的案例中选择最后一个作为‘基准’会更容易写代码，反之如果每次都选中间的则很难写。
+）的写法，这个排序分治和递归的思想同时运用了，实在不太好写，第一次写的时候怎么都写不对代码，此外在快速排序的案例中**选择最后一个作为基准**会更容易写代码，反之如果每次都选中间的则很难写。
 
 ## 二叉树（重要）
 
@@ -10,8 +10,8 @@
 二叉树的DFS和BFS是我们解决回溯问题的关键
 
 典型例题  
-`com.ahu.coding.beast.training.phase_tree.Question37`
-`com.ahu.coding.beast.training.phase_tree.Question38`
+`com.ahu.coding.beast.training.phase_tree.Question37`  
+`com.ahu.coding.beast.training.phase_tree.Question38`  
 `com.ahu.coding.beast.tools.BinaryTreeUtils.getRoot2LeafPathWithSumEqK(int, com.ahu.coding.beast.entity.BinaryTreeNode)`
 
 
@@ -24,7 +24,7 @@
 
 典型的使用技巧参考：
 
-`com.ahu.coding.beast.training.phase01.Question45`
+`com.ahu.coding.beast.training.phase01.Question45`  
 `com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit01Smart`
 
 
@@ -175,26 +175,28 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 
 典型例题：  
 `com.ahu.coding.beast.training.phase_tree.Question32`  
-`com.ahu.coding.beast.training.phase_tree.Question30`
-`com.ahu.coding.beast.training.phase_tree.Question31`
-`com.ahu.coding.beast.training.phase_tree.Question11`
-`com.ahu.coding.beast.training.phase_tree.Question33`
+`com.ahu.coding.beast.training.phase_tree.Question30`  
+`com.ahu.coding.beast.training.phase_tree.Question31`  
+`com.ahu.coding.beast.training.phase_tree.Question11`  
+`com.ahu.coding.beast.training.phase_tree.Question33`  
 
 
 ## 分治
 
 分治可以说是一种基本思想例如下面的几个案例：
 
-- 快速排序：就是先处理pivot的位置，pivot位置处理好了分别取递归处理左边和右边的数组，相当于二叉树的前序遍历。
+- 快速排序：就是先处理pivot的位置，pivot位置处理好了分别去递归处理左边和右边的数组，相当于二叉树的前序遍历。
   （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.quickSortMethod`）
 - 归并排序：则是相当于我们先对 nums[lo..mid] 排序，再对 nums[mid+1..hi] 排序，最后把这两个有序的子数组合并，整个数组就排好序了，这个相当于二叉树的后序遍历
   （代码位置：`com.ahu.coding.beast.tools.SortAlgorithmUtils.mergeSort`）
 - K个升序链表合并:我们先合并low->mid 的所有链表，再合并mid-> high 的所有链表，最后把两个最终的链表合并，k个链表也就合并完毕了，和上面一样也是后序遍历。
   （代码位置：`com.ahu.coding.beast.training.phase_linked_list.LinkedListQuestion04.mergeKListsByMerge`）
+  
+  
   可以发现共同点是：
-- 都需要分解问题（例如将数组拆成左边和右边）
-- 要递归的去解决子问题
-- 将子问题的解进行合并，得到原问题的解
+> 都需要分解问题（例如将数组拆成左边和右边）   
+ 要递归的去解决子问题  
+ 将子问题的解进行合并，得到原问题的解
 
 常用的分解问题的套路有：二分分解、首部分解
 
@@ -204,11 +206,8 @@ PS: 对于这两个树的代码真的要做到能默写的程度。注意的是�
 
 左右指针法，典型例题：
 
-- `Question14`  `Question01.twoSum3`  `com.ahu.coding.beast.training.phase01.Question01.getTwoSumPairList`
-  一般套路是一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解
-- `Question04.solution03`   
-   则是中心向两边发散，发散的过程中进行问题求解
-- `Question24` 进阶版的左右指针 (三数之和)
+- 一左一右两个指针逐步向中间靠拢，在靠拢的过程中找到一个可行的解 例如： `Question14`  `Question01.twoSum3`  `com.ahu.coding.beast.training.phase01.Question01.getTwoSumPairList`  `Question24`
+- 中心向两边发散，发散的过程中进行问题求解 `Question04.solution03`   
 
 快慢指针法，典型例题：
 
@@ -258,7 +257,7 @@ void slidingWindow(String s) {
     }
 }
 ```
-相关的实战题目参考,全部套用了上面的模板：
+相关的实战题目参考,全部套用了上面的模板：  
 `Question18`  
 `Question03.getLongestSubStringBySlidingWindowByTemplate`  
 `com.ahu.coding.beast.training.Question16`  
@@ -266,7 +265,7 @@ void slidingWindow(String s) {
 
 ## 二分查找
 
-二分查找是在数组**有序**情况下需要**O(logN)**的复杂度下最优选择。这道题目值得关注
+二分查找是在数组**有序**情况下需要**O(logN)**的复杂度下最优选择。有时候二分查找找到了目标值，也不一定程序就结束了，可以看下这道题目
 `Question17`
 
 
@@ -274,7 +273,7 @@ void slidingWindow(String s) {
 ## 单调栈
 
 单调栈实际上就是栈，只是利用了一些巧妙的逻辑，使得每次新元素入栈后，栈内的元素都保持有序（单调递增或单调递减）。
-例如我们求解数组中每一个元素之后第一个比它的元素的一题中，我们编写了下述代码,
+例如我们求解数组中每一个元素之后**第一个**比它大的元素的一题中，我们编写了下述代码,
 
 ```java
 static int[] calculateGreaterElement(int[] nums) {
@@ -310,10 +309,10 @@ static int[] calculateGreaterElement(int[] nums) {
 基本上可以直接套用上面的方案，综上所述，单调栈适合求解下一个更大值的问题
 
 使用技巧  
-- 是如果要求一个元素右边第一个比它大的元素就从右向左遍历，反之就从左向右遍历
-- 如果要求目标元素下一个比它大的值，栈应该是从栈顶到栈底 从小到大的顺序，元素进栈的时候，会把所有比它小的都给弹出去，直到遇到第一个比它大的，这个值就是所求
-- 如果要求目标元素下一个比它小的值，栈应该是从栈顶到栈底 从大到小的顺序，元素进栈的时候，会把所有比它大的都给弹出去，直到遇到第一个比它小的，这个值就是所求
-- 由于可能给的目标数组存在重复数字的情况，使用单调栈的时候我们可以不放数字本身而是放索引下
+- 是如果要求一个元素右边第一个比它大的元素就从右向左遍历（入栈），反之就从左向右遍历
+- 如果要求目标元素下一个比它大的值，栈应该是从栈顶到栈底从小到大的顺序，这样新元素进栈的时候，会把所有比它小的都给弹出去，直到遇到第一个比它大的，这个值就是所求
+- 如果要求目标元素下一个比它小的值，栈应该是从栈顶到栈底从大到小的顺序，这样新元素进栈的时候，会把所有比它大的都给弹出去，直到遇到第一个比它小的，这个值就是所求
+- 由于可能给的目标数组存在重复数字的情况，使用单调栈的时候我们可以不放数字本身而是放索引下标
 
 
 ## 单调队列
@@ -323,7 +322,7 @@ static int[] calculateGreaterElement(int[] nums) {
 ![单调队列](./pics/单调队列.png)
 
 单调队列有个典型的特点就是 进队列的时候需要把前面比它小的都给先从队尾移出去，就像排队的时候来了个恶霸，前面弱小的人都得出队让路，直到遇到一个更牛逼的恶霸
-这样的入队方式就可以保证，任意时刻，队头那个元素就是最恶霸的人，大致的代码实现如下
+这样的入队方式就可以保证，任意时刻，队头那个元素就是最恶霸（值最大）的人，大致的代码实现如下
 
 ```java
 class MonotonicQueue {
@@ -390,7 +389,7 @@ public static int fib(int n) {
 ```
 
 在经典的换零钱问题中，最优子结构就是，假定我现在有1,5,10 三种面额的纸币，我可能不知道100块能够用最少的纸币数量，但是我假如要是知道了99
-，95，90的最少纸币数量，然后再加一就是 100的兑换结果，这说明**子问题之间是互联联系有关联的**，又因为因为硬币的数量是没有限制的，所以子问题之间没有相互制，是互相独立的。
+，95，90的最少纸币数量，然后再加一就是 100的兑换结果，这说明**子问题之间是互联联系有关联的**，又因为因为硬币的数量是没有限制的，所以子问题之间没有相互制约，是互相独立的。
 
 PS：动态规划一般都是用来求解最值问题的
 
@@ -402,16 +401,16 @@ PS：动态规划一般都是用来求解最值问题的
 `com.ahu.coding.beast.training.phase_dp.Question_SkipGame.skipGameRes02`  
 `com.ahu.coding.beast.training.phase_dp.Question_StockSell.getProfit02Dp`
 
-**套路1： 有时候问你两个字符串之间的一些问题，比如问你最短编辑距离，最长公共子序列之类的，都会定义一个dp[][]  的二维数组来解决问题，例如下面三道题目**
+**套路1： 有时候问你两个字符串之间的一些问题，比如问你最短编辑距离，最长公共子序列之类的，都会定义一个`dp[i][j]` 的二维数组来解决问题，其中i和j是分别指向两个字符串的下标，例如下面三道题目**
 
 `com.ahu.coding.beast.training.phase_dp.Question02.getCommonSubStringLength`  
 `com.ahu.coding.beast.training.phase_dp.Question07.longestCommonSequence`  
 `com.ahu.coding.beast.training.phase_dp.Question_EditDistance`  
 
 
-**套路2：有什么连续子串，连续递增数列等,我们都可以考虑以某个字符结尾的情况,定义dp[]，然后求解dp数组极值的方法来求解**
+**套路2：有什么连续子串，连续递增数列等，我们都可以考虑以某个字符结尾的情况，定义dp[]，然后求解dp数组极值的方法来求解**
 
-**套路2：有什么子序列，连续递增子序列等问题,没有连续性要求的场景，我们都可以考虑前i个元素的情况,定义dp[]，前i个元素的情况当和当前元素i一般都有关联**
+**套路2：有什么子序列，连续递增子序列等问题，没有连续性要求的场景，我们都可以考虑前i个元素的情况,定义dp[]，前i个元素的情况当和当前元素i一般都有关联**
 
 套路2和套路3 参考这个例题会感触比较深：
 
